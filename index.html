@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEAR - Produção</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="icons/admin-192.png">
+    <link rel="apple-touch-icon" href="icons/admin-192.png">
+    <link rel="shortcut icon" href="icons/admin-192.png">
+    <link rel="manifest" href="manifests/manifest-admin.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Admin">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a56db">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <!--Cabeçalho-->
+    <div class="hero-header">
+        <div class="hero-content">
+            <div class="hero-nav">
+                <div class="hero-logo">
+                    <img src="lgMaster.png" alt="Logo" width="40">
+                </div>
+                <div class="hero-usuario" onclick="this.querySelector('.hero-menu').classList.toggle('aberto')">
+                    <span id="nomeUsuario">Olá, Davi</span> <span class="hero-seta">▼</span>
+                    <div class="hero-menu">
+                        <p onclick="window.location.href='index.html'"><i class="fa-solid fa-clipboard-list"></i> Administração</p>
+                        <p onclick="window.location.href='etiqueta.html'"><i class="fa-solid fa-tags"></i> Master Etiqueta</p>
+                        <p onclick="window.location.href='producao.html'"><i class="fa-solid fa-industry"></i> Operador</p>
+                        <p onclick="window.location.href='horario/horario.html'"><i class="fa-solid fa-clock"></i> Horários</p>
+                        <p onclick="window.location.href='dashboard/dashboard.html'"><i class="fa-solid fa-chart-line"></i> Dashboard</p>
+                        <p onclick="window.location.href='http://google.com'"><i class="fa-brands fa-google"></i> Sair</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-caixa">
+                <h1 class="hero-titulo">🏭 TEAR v5.0 – Com Master Etiqueta (ME)</h1>
+                <p class="hero-sub">Rastreamento completo por ME • <span id="dataHdr"></span></p>
+            </div>
+        </div>
+
+        <div class="hero-statusbar">
+            <div class="hero-stats">
+                <div class="hero-stat-item"><span class="ind" id="st-srv"></span><span id="tx-srv">Servidor</span></div>
+                <div class="hero-stat-item"><span class="ind" id="st-ws"></span><span id="tx-ws">WebSocket</span></div>
+                <div class="hero-stat-item"><div class="ind fin"></div>Finalizados: <span id="cFin">0</span></div>
+                <div class="hero-stat-item"><div class="ind and"></div>Andamento: <span id="cAnd">0</span></div>
+                <div class="hero-stat-item"><div class="ind pen"></div>Pendentes: <span id="cPen">0</span></div>
+                <div class="hero-stat-item">🏷️ ME <strong id="cTot">0</strong></div>
+            </div>
+        </div>
+
+        <div class="hero-tabs">
+            <button class="hero-tab ativo" onclick="aba(event,'me')">☑️ Cadastro ME</button>
+            <button class="hero-tab" onclick="aba(event,'entrada')">📥 Entrada</button>
+            <button class="hero-tab" onclick="aba(event,'producao')">🏭 Produção</button>
+            <button class="hero-tab" onclick="aba(event,'finalizados')">✅ Finalizados</button>
+            <button class="hero-tab" onclick="aba(event,'ferramentas')">🔧 Ferramentas</button>
+        </div>
+    </div>
+      
+    <div class="container">
+
+        <!-- CADASTRO ME -->
+        <div id="tab-me" class="tab-content ativo">
+            <div class="me-pagina">
+                <!-- LAYOUT: FORM + STATS -->
+                <div class="me-layout">
+                    <div class="me-form-card">
+                        <h2>Cadastro ME</h2>
+                        <form id="formME" onsubmit="addME(event)">
+                            <div class="me-campo">
+                                <label>Código ME <span class="me-req">*</span></label>
+                                <input type="text" id="me-codigo" required placeholder="Digite o código">
+                            </div>
+                            <div class="me-campo">
+                                <label>Nome <span class="me-req">*</span></label>
+                                <input type="text" id="me-nome" required placeholder="Digite o nome">
+                            </div>
+                            <div class="me-campo">
+                                <label>Largura</label>
+                                <input type="number" id="me-larg" value="100" placeholder="Digite a largura">
+                            </div>
+                            <div class="me-campo">
+                                <label>Comprimento</label>
+                                <input type="number" id="me-comp" value="200" placeholder="Digite o comprimento">
+                            </div>
+                            <div class="me-campo">
+                                <label>Batidas</label>
+                                <input type="number" id="me-bat" value="1500" placeholder="Digite as batidas">
+                            </div>
+                            <button type="submit" class="me-btn-cadastrar">
+                                <i class="fa-solid fa-tag"></i> CADASTRAR ME
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="me-stats-lateral">
+                        <div class="me-stat-box me-destaque" onclick="toggleListaME()">
+                            <i class="fa-solid fa-tags"></i>
+                            <h3 id="s-me-tot">0</h3>
+                            <p>Etiquetas</p>
+                        </div>
+                        <div class="me-stat-box">
+                            <i class="fa-solid fa-arrow-up-9-1"></i>
+                            <h3 id="ultimo-me">-</h3>
+                            <p>Último ME</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LISTA DE MEs (aparece ao clicar em Total) -->
+                <div class="me-area-central" id="area-lista-me">
+                    <h2>
+                        <span><i class="fa-solid fa-list"></i> Master Etiquetas</span>
+                        <button class="me-btn-fechar-lista" onclick="toggleListaME()"><i class="fa-solid fa-xmark"></i> Fechar</button>
+                    </h2>
+                    <div class="me-busca-area">
+                        <input type="text" id="busca-me" placeholder="🔍 Buscar por código ou nome..." oninput="filtrarME()">
+                    </div>
+                    <div class="me-lista-header"><span>Código</span><span>Nome</span><span>Largura</span><span>Comp.</span><span>Batidas</span><span>Cadastro</span><span>Ações</span></div>
+                    <div id="lista-me"><p style="text-align:center;color:#999;padding:40px">Carregando...</p></div>
+                </div>
+            </div>
+        </div>
+        <!-- ========== ENTRADA ========== -->
+        <div id="tab-entrada" class="tab-content">
+            <div class="entrada-layout">
+
+                <!-- CARD ESQUERDO: FORMULÁRIO -->
+                <div class="ent-card ent-form-card">
+                    <h2><i class="fa-solid fa-plus" style="color:#3b82f6"></i> Adicionar Serviço</h2>
+
+                    <form id="formEnt" onsubmit="addEntrada(event)">
+                        <div class="ent-campo">
+                            <label>Código ME <span class="req">*</span></label>
+                            <div class="autocomplete-wrapper">
+                                <input type="text" id="e-me" placeholder="Digite o ME..." oninput="buscarME(this.value)" onfocus="buscarME(this.value)" autocomplete="off">
+                                <div class="autocomplete-list" id="me-autocomplete"></div>
+                            </div>
+                        </div>
+
+                        <div class="ent-campo">
+                            <label>Nome <span class="req">*</span></label>
+                            <div class="autocomplete-wrapper">
+                                <input type="text" id="e-nome" required placeholder="Digite o nome..." oninput="buscarNome(this.value)" onfocus="buscarNome(this.value)" autocomplete="off">
+                                <div class="autocomplete-list" id="nome-autocomplete"></div>
+                            </div>
+                        </div>
+
+                        <div class="ent-campo-row">
+                            <div class="ent-campo">
+                                <label>Tipo</label>
+                                <input type="hidden" id="e-tipo" value="FBR">
+                                <div class="tipo-toggle">
+                                    <button type="button" class="tipo-btn fbr ativo" onclick="setTipo('FBR')">
+                                        <span class="tipo-dot fbr"></span> FBR
+                                    </button>
+                                    <button type="button" class="tipo-btn fpt" onclick="setTipo('FPT')">
+                                        <span class="tipo-dot fpt"></span> FPT
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="ent-campo">
+                                <label>Data</label>
+                                <input type="date" id="e-data">
+                            </div>
+                        </div>
+
+                        <div class="ent-medidas">
+                            <div class="ent-medidas-header">
+                                <i class="fa-solid fa-ruler-combined"></i> Medidas ME
+                            </div>
+                            <div class="ent-medidas-grid">
+                                <div class="ent-medida">
+                                    <label>Largura (ME)</label>
+                                    <input type="number" id="e-larg" value="100">
+                                </div>
+                                <div class="ent-medida">
+                                    <label>Comprimento (ME)</label>
+                                    <input type="number" id="e-comp" value="200">
+                                </div>
+                                <div class="ent-medida">
+                                    <label>Batidas (ME)</label>
+                                    <input type="number" id="e-bat" value="1500">
+                                </div>
+                                <div class="ent-medida">
+                                    <label>Unidades</label>
+                                    <input type="number" id="e-un" value="250">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="ent-btn-add">
+                            <i class="fa-solid fa-check"></i> ADICIONAR
+                        </button>
+                    </form>
+                </div>
+
+                <!-- CARD DIREITO: LISTA -->
+                <div class="ent-card ent-lista-card">
+                    <h2><i class="fa-solid fa-layer-group" style="color:#3b82f6"></i> Serviços na Entrada</h2>
+
+                    <!-- Stats -->
+                    <div class="ent-stats">
+                        <div class="ent-stat total">
+                            <h3 id="s-tot">0</h3>
+                            <div class="ent-stat-nums">
+                                <strong id="s-tot-h">0h</strong>
+                                <p>Total</p>
+                            </div>
+                        </div>
+                        <div class="ent-stat fbr">
+                            <h3 id="s-fbr">0</h3>
+                            <div class="ent-stat-nums">
+                                <strong id="s-fbr-h">0h</strong>
+                                <p>FBR</p>
+                            </div>
+                        </div>
+                        <div class="ent-stat fpt">
+                            <h3 id="s-fpt">0</h3>
+                            <div class="ent-stat-nums">
+                                <strong id="s-fpt-h">0h</strong>
+                                <p>FPT</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Busca + Filtros -->
+                    <div class="ent-busca-area">
+                        <div class="ent-busca-input">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="busca-ent" placeholder="Buscar por ME, nome, dimensão..." onkeyup="filtrarEnt()">
+                        </div>
+                        <button class="ent-btn-refresh" onclick="carregarEntrada()"><i class="fa-solid fa-rotate"></i> Atualizar</button>
+                    </div>
+
+                    <div class="ent-filtros">
+                        <button class="ent-filtro todos ativo" data-filtro="todos" onclick="setFiltroTipo('todos')">
+                            <span class="filtro-dot todos"></span> Todos
+                        </button>
+                        <button class="ent-filtro fbr" data-filtro="fbr" onclick="setFiltroTipo('fbr')">
+                            <span class="filtro-dot fbr"></span> FBR
+                        </button>
+                        <button class="ent-filtro fpt" data-filtro="fpt" onclick="setFiltroTipo('fpt')">
+                            <span class="filtro-dot fpt"></span> FPT
+                        </button>
+                        <span class="ent-filtro-info" id="filtro-info"></span>
+                    </div>
+
+                    <!-- Header da lista -->
+                    <div class="ent-lista-header">
+                        <span>ME</span>
+                        <span>Nome</span>
+                        <span>Tipo</span>
+                        <span>L</span>
+                        <span>C</span>
+                        <span>Bat</span>
+                        <span>Un</span>
+                        <span>Tempo</span>
+                        <span>Entrada</span>
+                        <span>Ações</span>
+                    </div>
+
+                    <!-- Lista de serviços -->
+                    <div id="lista-ent">
+                        <div class="ent-vazio">
+                            <i class="fa-solid fa-inbox"></i>
+                            <p>Nenhum serviço na fila</p>
+                            <span>Adicione um serviço ao lado para começar</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PRODUÇÃO -->
+        <div id="tab-producao" class="tab-content">
+            <div class="card" style="background:#e3f2fd;border-left:4px solid #2196f3">
+                <strong>⏰ Horários da Fábrica</strong>
+                <button onclick="salvarHorarios()" class="btn-sucesso btn-pequeno" style="float:right">💾 Salvar</button>
+                <div class="horarios-grid" id="horarios-grid"></div>
+            </div>
+            <div id="maquinas-container"></div>
+            <div style="text-align:center;margin:20px 0">
+                <button onclick="addMaquina()" class="add-btn" style="padding:15px 30px;font-size:16px">➕ ADICIONAR MÁQUINA</button>
+            </div>
+        </div>
+
+        <!-- FINALIZADOS -->
+        <div id="tab-finalizados" class="tab-content">
+            <div class="card">
+                <h2>✅ Serviços Finalizados</h2>
+                <div style="display:flex;gap:10px;margin-bottom:15px">
+                    <input type="text" id="busca-fin" placeholder="🔍 Buscar por ME, nome..." style="flex:1" onkeyup="filtrarFin()">
+                    <button onclick="carregarFinalizados()">🔄</button>
+                </div>
+                <div id="lista-fin"><p style="text-align:center;color:#999">Carregando...</p></div>
+            </div>
+        </div>
+
+        <!-- FERRAMENTAS -->
+        <div id="tab-ferramentas" class="tab-content">
+            <div class="card">
+                <h2>🔧 Ferramentas</h2>
+                <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+                    <div class="stat-card roxo"><h3 id="i-me">0</h3><p>🏷️ ME</p></div>
+                    <div class="stat-card"><h3 id="i-ent">0</h3><p>📥 Entrada</p></div>
+                    <div class="stat-card"><h3 id="i-prod">0</h3><p>🏭 Produção</p></div>
+                    <div class="stat-card"><h3 id="i-fin">0</h3><p>✅ Finalizados</p></div>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+                    <button onclick="exportar()" class="btn-sucesso">📤 Exportar</button>
+                    <button onclick="importar()">📥 Importar</button>
+                    <button onclick="limpar()" class="btn-perigo">🗑️ Limpar LOCAL</button>
+                </div>
+                <div style="margin-top:20px;padding:15px;background:#e3f2fd;border-radius:8px">
+                    <p><strong>ℹ️</strong> IP: 192.168.0.110:5000 | BPM: 630</p>
+                    <p>Sync: <span id="i-sync">-</span></p>
+                    <p style="color:#9b59b6;font-weight:bold">🏷️ Sistema ME ativo - Rastreamento completo!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL HISTÓRICO ME -->
+    <div class="modal-overlay" id="modal-historico-me" onclick="if(event.target===this)fecharModalHistorico()">
+        <div class="modal-historico">
+            <div class="modal-hist-header">
+                <div class="modal-hist-titulo">
+                    <i class="fa-solid fa-tag"></i>
+                    <span id="modal-me-codigo">-</span>
+                </div>
+                <button class="modal-hist-fechar" onclick="fecharModalHistorico()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-hist-info">
+                <div class="modal-hist-dado">
+                    <span class="modal-hist-label">Nome</span>
+                    <span class="modal-hist-valor" id="modal-me-nome">-</span>
+                </div>
+                <div class="modal-hist-dado">
+                    <span class="modal-hist-label">Largura</span>
+                    <span class="modal-hist-valor" id="modal-me-larg">-</span>
+                </div>
+                <div class="modal-hist-dado">
+                    <span class="modal-hist-label">Comprimento</span>
+                    <span class="modal-hist-valor" id="modal-me-comp">-</span>
+                </div>
+                <div class="modal-hist-dado">
+                    <span class="modal-hist-label">Batidas</span>
+                    <span class="modal-hist-valor" id="modal-me-bat">-</span>
+                </div>
+                <div class="modal-hist-dado">
+                    <span class="modal-hist-label">Produzido</span>
+                    <span class="modal-hist-valor modal-hist-destaque" id="modal-me-total">0</span>
+                </div>
+            </div>
+            <div class="modal-hist-lista-header">
+                <span>Maq</span>
+                <span>Entrada</span>
+                <span>Inicio</span>
+                <span>Fim</span>
+                <span></span>
+            </div>
+            <div class="modal-hist-lista" id="historico-lista"></div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR ME -->
+    <div class="modal-overlay" id="modal-editar-me">
+        <div class="me-modal">
+            <div class="me-modal-header">
+                <h3><i class="fa-solid fa-pen"></i> Editar - <span id="edit-me-titulo">-</span></h3>
+                <button class="modal-close" onclick="fecharModalEditarME()">✕</button>
+            </div>
+            <form id="formEditME" onsubmit="salvarEditME(event)">
+                <input type="hidden" id="edit-me-id">
+                <div class="me-modal-edit-field">
+                    <label>Código</label>
+                    <input type="text" id="edit-me-codigo" readonly style="background:#f5f5f5;color:#999">
+                </div>
+                <div class="me-modal-edit-field">
+                    <label>Nome</label>
+                    <input type="text" id="edit-me-nome" required>
+                </div>
+                <div class="me-modal-edit-field">
+                    <label>Largura</label>
+                    <input type="number" id="edit-me-larg" step="0.01">
+                </div>
+                <div class="me-modal-edit-field">
+                    <label>Comprimento</label>
+                    <input type="number" id="edit-me-comp" step="0.01">
+                </div>
+                <div class="me-modal-edit-field">
+                    <label>Batidas</label>
+                    <input type="number" id="edit-me-bat">
+                </div>
+                <button type="submit" class="me-btn-salvar"><i class="fa-solid fa-check"></i> SALVAR</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CÓDIGO DE PARADA -->
+    <div class="modal-overlay" id="modal-parada-index">
+        <div class="modal-content" style="max-width:400px">
+            <div class="modal-header" style="background:linear-gradient(135deg,#e74c3c,#c0392b)">
+                <h3 style="color:#fff">⏸️ Motivo da Parada</h3>
+                <button class="modal-close" onclick="fecharModalPausaIndex()" style="color:#fff">×</button>
+            </div>
+            <div style="padding:20px;display:flex;flex-direction:column;gap:10px">
+                <button onclick="confirmarPausaIndex(1)" style="background:linear-gradient(135deg,#f1c40f,#f39c12);color:#fff;padding:15px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer">
+                    🟡 1 - Preparação de Urdume
+                </button>
+                <button onclick="confirmarPausaIndex(3)" style="background:linear-gradient(135deg,#e67e22,#d35400);color:#fff;padding:15px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer">
+                    🟠 3 - Manutenção Programada
+                </button>
+                <button onclick="confirmarPausaIndex(4)" style="background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;padding:15px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer">
+                    🔴 4 - Parada Técnica Mecânica
+                </button>
+                <button onclick="confirmarPausaIndex(5)" style="background:linear-gradient(135deg,#9b59b6,#8e44ad);color:#fff;padding:15px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer">
+                    🟣 5 - Ajuste de Programa
+                </button>
+                <button onclick="confirmarPausaIndex(6)" style="background:linear-gradient(135deg,#1abc9c,#16a085);color:#fff;padding:15px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer">
+                    🟢 6 - Amostra p/ Controle Qualidade
+                </button>
+                <button onclick="confirmarPausaIndex(7)" style="background:linear-gradient(135deg,#34495e,#2c3e50);color:#fff;padding:15px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer">
+                    ⚫ 7 - Limitação de Equipe Operacional
+                </button>
+                <button onclick="confirmarPausaIndex(8)" style="background:linear-gradient(135deg,#795548,#5d4037);color:#fff;padding:15px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer">
+                    🟤 8 - Serviço Insuficiente – Máquina Desligada
+                </button>
+                <button onclick="fecharModalPausaIndex()" style="background:#95a5a6;color:#fff;padding:12px;border:none;border-radius:8px;font-size:14px;cursor:pointer;margin-top:5px">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="rodape">
+        <div>Desenvolvido por <strong style="color:#60a5fa;text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5)">Davi de Sousa Barbosa</strong></div>
+        <div style="font-size:13px;opacity:.9;text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5)">Petrópolis - RJ</div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>

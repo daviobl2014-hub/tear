@@ -1,0 +1,2774 @@
+/* ============================================================
+   1. GLOBAL — Reset, Body, Container
+   Estilos base que se aplicam a TODAS as páginas
+   ============================================================ */
+
+/* ========== RESET GLOBAL (remove margens padrão do navegador) ========== */
+
+* {
+  margin: 0;  /* zera margem */
+  padding: 0;  /* zera espaçamento interno */
+  box-sizing: border-box;  /* padding e border não aumentam o tamanho */
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;  /* fonte do texto */
+  background: #f5f5f5;  /* fundo cinza claro da página */
+  font-size: 14px;  /* tamanho da fonte */
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  flex-direction: column;  /* empilha itens de cima para baixo */
+  min-height: 100vh;  /* altura mínima = tela inteira */
+  margin: 0;  /* zera margem */
+  overflow-x: hidden;  /* remove scroll horizontal */
+}
+
+/* Container principal empurra rodapé para baixo */
+.container {
+  flex: 1;  /* ocupa todo espaço disponível */
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  flex-direction: column;  /* empilha itens de cima para baixo */
+}
+
+/* ============================================================
+   2. HERO HEADER — Cabeçalho Principal
+   Logo, navegação, título, status bar e abas
+   Presente em TODAS as páginas
+   ============================================================ */
+
+/* ========== HERO HEADER (fundo com imagem fundo.png) ========== */
+
+.hero-header {
+  background: url('fundo.png') center 45%/cover no-repeat;  /* imagem de fundo */
+  position: relative;  /* referência para filhos absolutos */
+  z-index: 1;  /* camada de sobreposição */
+  overflow: visible
+}
+
+/* Conteúdo sobre a imagem */
+.hero-content {
+  position: relative;  /* referência para filhos absolutos */
+  z-index: 100;  /* camada de sobreposição */
+  padding: 20px 40px 0;  /* espaço interno */
+  text-align: center;  /* texto centralizado */
+}
+
+/* ========== NAVEGAÇÃO (logo esquerda + usuário direita) ========== */
+
+.hero-nav {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  justify-content: space-between;  /* distribui com espaço entre */
+  align-items: center;  /* centraliza verticalmente */
+  padding: 10px 40px 40px;  /* espaço interno */
+  margin: 0 -40px;  /* zera margem */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);  /* borda só embaixo */
+  position: relative;  /* referência para filhos absolutos */
+  z-index: 9999;  /* camada de sobreposição */
+
+}
+
+.hero-logo {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  align-items: center;  /* centraliza verticalmente */
+  gap: 12px;  /* espaço entre itens flex/grid */
+}
+
+/* ========== TÍTULO E SUBTÍTULO ========== */
+
+/* Fundo escuro semitransparente cobrindo título + subtítulo até as abas */
+.hero-titulo {
+  color: #fff;  /* texto branco */
+  font-size: 28px;  /* tamanho da fonte */
+  font-weight: 700;  /* negrito */
+  margin: 0;  /* zera margem */
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);  /* formatação de texto */
+}
+
+.hero-sub {
+  color: rgba(255, 255, 255, 0.85);  /* cor do texto */
+  font-size: 14px;  /* tamanho da fonte */
+  font-weight: 400;  /* peso normal */
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);  /* formatação de texto */
+}
+
+/* Caixa escura que envolve título + subtítulo */
+.hero-caixa {
+  background: rgba(0, 15, 40, 0.45);  /* fundo semitransparente */
+  padding: 25px 0 15px;  /* espaço interno */
+  margin: 0 -40px 0 -40px;  /* zera margem */
+  display: block;  /* exibe como bloco */
+}
+
+/* ========== USUÁRIO + MENU DROPDOWN ========== */
+
+.hero-usuario {
+  position: relative;  /* referência para filhos absolutos */
+  cursor: pointer;  /* cursor de mão (clicável) */
+  user-select: none;  /* não pode selecionar texto */
+  color: rgb(255, 255, 255);  /* cor do texto */
+  font-size: 18px;  /* tamanho da fonte */
+  text-shadow: 0 1px 1px rgba(167, 157, 157, 0.4)
+}
+
+.hero-seta {
+  font-size: 12px;  /* tamanho da fonte */
+}
+
+/* Menu dropdown (escondido, abre com .aberto) */
+.hero-menu {
+  display: none;  /* escondido */
+  position: absolute;  /* posição absoluta em relação ao pai */
+  top: 35px;  /* posição */
+  right: 0;  /* colado na direita */
+  background: #fff;  /* fundo branco */
+  color: #333;  /* cor do texto */
+  border-radius: 10px;  /* cantos arredondados */
+  padding: 6px 0;  /* espaço interno */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);  /* sombra do elemento */
+  z-index: 10000;  /* camada de sobreposição */
+  min-width: 210px;  /* largura mínima */
+}
+
+.hero-menu.aberto {
+  display: block;  /* exibe como bloco */
+}
+
+.hero-menu p {
+  margin: 0;  /* zera margem */
+  padding: 10px 16px;  /* espaço interno */
+  cursor: pointer;  /* cursor de mão (clicável) */
+  font-size: 14px;  /* tamanho da fonte */
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  align-items: center;  /* centraliza verticalmente */
+  gap: 10px;  /* espaço entre itens flex/grid */
+  transition: background 0.15s;  /* animação suave na mudança */
+}
+
+.hero-menu p:hover {
+  background: #f0f4ff;  /* cor de fundo */
+}
+
+/* ========== STATUS BAR (azul escuro, conectada à caixa) ========== */
+
+.hero-statusbar {
+  background: rgba(0, 15, 40, 0.45);  /* fundo semitransparente */
+  padding: 10px 30px 12px;  /* espaço interno */
+  margin: 0;  /* zera margem */
+  position: relative;  /* referência para filhos absolutos */
+  z-index: 5;  /* camada de sobreposição */
+}
+
+.hero-stats {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  justify-content: center;  /* centraliza horizontalmente */
+  flex-wrap: wrap;  /* quebra linha quando não cabe */
+  gap: 10px;  /* espaço entre itens flex/grid */
+  font-size: 13px;  /* tamanho da fonte */
+  color: #fff;  /* texto branco */
+}
+
+.hero-stat-item {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  align-items: center;  /* centraliza verticalmente */
+  gap: 6px;  /* espaço entre itens flex/grid */
+  padding: 7px 18px;  /* espaço interno */
+  background: rgba(255, 255, 255, 0.12);  /* fundo semitransparente */
+  border-radius: 22px;  /* cantos arredondados */
+  font-weight: 500;  /* peso médio */
+}
+
+/* ========== INDICADORES (bolinhas de status) ========== */
+
+.ind {
+  width: 10px;  /* largura */
+  height: 10px;  /* altura */
+  border-radius: 50%;  /* cantos arredondados */
+  border: 2px solid rgba(255, 255, 255, 0.3);  /* borda */
+}
+
+.ind.ok  { background: #27ae60; }
+.ind.err { background: #e74c3c; }
+.ind.fin { background: #27ae60; }
+.ind.and { background: #f39c12; }
+.ind.pen { background: #95a5a6; }
+
+/* ========== ABAS (largura total, dentro da caixa escura) ========== */
+
+.hero-tabs {
+  background: rgba(0, 15, 40, 0.65);  /* fundo semitransparente */
+  width: 100%;  /* largura total do pai */
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  justify-content: center;  /* centraliza horizontalmente */
+  gap: 10px;  /* espaço entre itens flex/grid */
+  padding: 16px 20px 18px;  /* espaço interno */
+  flex-wrap: wrap;  /* quebra linha quando não cabe */
+  background: rgba(0, 15, 40, 0.45);  /* fundo semitransparente */
+  box-sizing: border-box;  /* padding e border não aumentam o tamanho */
+}
+
+.hero-tab {
+  flex: 1;  /* ocupa todo espaço disponível */
+  max-width: 220px;  /* largura máxima */
+  text-align: center;  /* texto centralizado */
+  background: rgba(255, 255, 255, 0.15);  /* fundo semitransparente */
+  border: 2px solid rgba(255, 255, 255, 0.2);  /* borda */
+  padding: 12px 20px;  /* espaço interno */
+  border-radius: 10px;  /* cantos arredondados */
+  cursor: pointer;  /* cursor de mão (clicável) */
+  font-weight: 600;  /* semi-negrito */
+  color: rgba(255, 255, 255, 0.85);  /* cor do texto */
+  font-size: 14px;  /* tamanho da fonte */
+  transition: all 0.2s;  /* animação suave na mudança */
+  box-shadow: none;  /* sombra do elemento */
+}
+
+.hero-tab:hover {
+  background: rgba(255, 255, 255, 0.25);  /* fundo semitransparente */
+  border-color: rgba(255, 255, 255, 0.4);  /* cor da borda */
+  color: #fff;  /* texto branco */
+  transform: translateY(-1px);  /* move para cima/baixo */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);  /* sombra do elemento */
+}
+
+/* Aba ativa */
+.hero-tab.ativo {
+  background: rgba(255, 255, 255, 0.95);  /* fundo semitransparente */
+  color: rgb(0, 32, 80);  /* cor do texto */
+  border-color: transparent;  /* cor da borda */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  /* sombra do elemento */
+}
+
+/* ========== RESPONSIVO ========== */
+
+@media (max-width: 768px) {
+  .hero-content {
+    position: relative;  /* referência para filhos absolutos */
+    z-index: 2;  /* camada de sobreposição */
+    padding: 15px 40px 0;  /* espaço interno */
+    text-align: center;  /* texto centralizado */
+  }
+
+  .hero-titulo {
+    font-size: 18px;  /* tamanho da fonte */
+    padding: 8px 16px;  /* espaço interno */
+  }
+
+  .hero-sub {
+    font-size: 12px;  /* tamanho da fonte */
+  }
+
+  .hero-statusbar {
+    padding: 10px 30px;  /* espaço interno */
+  }
+
+  .hero-stats {
+    gap: 5px;  /* espaço entre itens flex/grid */
+    font-size: 11px;  /* tamanho da fonte */
+  }
+
+  .hero-stat-item {
+    padding: 5px 10px;  /* espaço interno */
+  }
+
+  .hero-tabs {
+    gap: 5px;  /* espaço entre itens flex/grid */
+    padding: 10px;  /* espaço interno */
+  }
+
+  .hero-tab {
+    padding: 8px 12px;  /* espaço interno */
+    font-size: 12px;  /* tamanho da fonte */
+    flex: none;  /* proporção flex */
+  }
+}
+/* Conteúdo da aba (escondido por padrão) */
+.tab-content {
+  display: none;  /* escondido */
+}
+
+/* Conteúdo da aba ativa */
+.tab-content.ativo {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  flex-direction: column;  /* empilha itens de cima para baixo */
+  flex: 1;  /* ocupa todo espaço disponível */
+}
+
+/* ============================================================
+   3. COMPONENTES GLOBAIS — Cards, Formulários, Botões, Stats
+   Estilos reutilizados em várias abas
+   ============================================================ */
+
+/* ========== CARDS (containers brancos com sombra) ========== */
+
+.card {
+  background: #fff;  /* fundo branco */
+  border-radius: 8px;  /* cantos arredondados */
+  padding: 20px;  /* espaço interno */
+  margin-bottom: 15px;  /* espaço externo abaixo */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .1);  /* sombra do elemento */
+}
+
+/* Título do card com linha azul embaixo */
+.card h2 {
+  color: rgb(0, 0, 0);  /* cor do texto */
+  margin-bottom: 15px;  /* espaço externo abaixo */
+  padding-bottom: 10px;  /* espaço interno abaixo */
+  border-bottom: 2px solid #000000;  /* borda só embaixo */
+  font-size: 18px;  /* tamanho da fonte */
+}
+
+/* ========== FORMULÁRIOS (grid de campos) ========== */
+
+.form-row {
+  display: grid;  /* ativa grid layout */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));  /* define colunas do grid */
+  gap: 10px;  /* espaço entre itens flex/grid */
+  margin-bottom: 12px;  /* espaço externo abaixo */
+}
+
+.form-group label {
+  display: block;  /* exibe como bloco */
+  margin-bottom: 5px;  /* espaço externo abaixo */
+  font-weight: 500;  /* peso médio */
+  color: #555;  /* cor do texto */
+}
+
+input,
+select {
+  width: 100%;  /* largura total do pai */
+  padding: 8px;  /* espaço interno */
+  border: 1px solid #ddd;  /* borda fina */
+  border-radius: 4px;  /* cantos arredondados */
+  font-size: 13px;  /* tamanho da fonte */
+}
+
+/* ========== BOTÕES (estilos gerais) ========== */
+
+button {
+  background: #014716;  /* cor de fundo */
+  color: #fff;  /* texto branco */
+  border: none;  /* sem borda */
+  padding: 10px 20px;  /* espaço interno */
+  border-radius: 5px;  /* cantos arredondados */
+  cursor: pointer;  /* cursor de mão (clicável) */
+  font-weight: 500;  /* peso médio */
+}
+
+/* button:hover removido - cada botão tem seu próprio hover */
+
+.btn-fbr:hover {
+  background: #1a56db !important;  /* cor de fundo */
+}
+
+.btn-fpt:hover {
+  background: #1a56db !important;  /* cor de fundo */
+}
+
+.btn-todos:hover {
+  background: #1a56db !important;  /* cor de fundo */
+}
+
+
+button.filtro-btn.btn-fbr.ativo {
+  background: #dc2626 !important; /* vermelho */
+}
+
+button.filtro-btn.btn-fpt.ativo {
+  background: #111111 !important; /* preto */
+}
+
+button.filtro-btn.btn-todos.ativo {
+  background: #1a56db !important; /* azul */
+}
+
+/* Verde = sucesso/confirmar */
+.btn-sucesso {
+  background: #27ae60;  /* cor de fundo */
+}
+
+.btn-sucesso:hover {
+  background: #219a52;  /* cor de fundo */
+}
+
+/* Vermelho = perigo/excluir */
+.btn-perigo {
+  background: #e74c3c;  /* cor de fundo */
+}
+
+.btn-perigo:hover {
+  background: #c0392b;  /* cor de fundo */
+}
+
+/* Laranja = alerta */
+.btn-laranja {
+  background: #f39c12;  /* cor de fundo */
+}
+
+/* Botão pequeno (ações inline) */
+.btn-pequeno {
+  padding: 6px 12px;  /* espaço interno */
+  font-size: 12px;  /* tamanho da fonte */
+  margin: 2px;  /* espaço externo */
+}
+
+/* Botão verde gradiente de adicionar */
+.add-btn {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);  /* degradê */
+  padding: 10px 20px;  /* espaço interno */
+  border-radius: 5px;  /* cantos arredondados */
+  font-weight: bold;  /* peso da fonte */
+  margin: 5px;  /* espaço externo */
+}
+
+/* ========== CARDS DE ESTATÍSTICAS (3 cards no topo com contadores) ========== */
+
+.stats {
+  display: grid;  /* ativa grid layout */
+  grid-template-columns: repeat(3, 1fr);  /* define colunas do grid */
+  gap: 10px;  /* espaço entre itens flex/grid */
+  margin-bottom: 15px;  /* espaço externo abaixo */
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #1a56db, #1e40af);  /* degradê */
+  color: #fff;  /* texto branco */
+  padding: 15px;  /* espaço interno */
+  border-radius: 8px;  /* cantos arredondados */
+  text-align: center;  /* texto centralizado */
+}
+
+.stat-card.total {
+  background: linear-gradient(135deg, #1a56db, #1e40af);  /* degradê */
+}
+
+/* FBR (verde) */
+.stat-card.fbr {
+  background: linear-gradient(135deg, #ef4444, #991b1b);  /* degradê */
+}
+
+/* FPT (roxo ou azul diferente) */
+.stat-card.fpt {
+  background: linear-gradient(135deg, #1f1f1f, #000000);;  /* degradê */
+}
+
+/* Número grande */
+.stat-card h3 {
+  font-size: 24px;  /* tamanho da fonte */
+}
+
+/* Descrição embaixo */
+.stat-card p {
+  font-size: 12px;  /* tamanho da fonte */
+  opacity: .9;  /* transparência (0=invisível, 1=visível) */
+}
+
+/* ============================================================
+   4. ABA PRODUÇÃO — Horários, Máquinas, Serviços
+   Tudo relacionado à aba "Produção" do sistema
+   ============================================================ */
+
+/* ========== HORÁRIOS DA FÁBRICA (grade de dias seg-dom) ========== */
+
+.horarios-grid {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  flex-wrap: wrap;  /* quebra linha quando não cabe */
+  gap: 10px;  /* espaço entre itens flex/grid */
+  margin: 15px 0;  /* espaço externo */
+  justify-content: center;  /* centraliza horizontalmente */
+}
+
+/* Card de cada dia */
+.dia-config {
+  background: #f8f9fa;  /* cor de fundo */
+  padding: 12px;  /* espaço interno */
+  border-radius: 8px;  /* cantos arredondados */
+  border: 2px solid #dee2e6;  /* borda */
+  min-width: 170px;  /* largura mínima */
+  text-align: center;  /* texto centralizado */
+}
+
+/* Dia desativado (opaco) */
+.dia-config.inativo {
+  opacity: .5;  /* transparência (0=invisível, 1=visível) */
+  background: #e9ecef;  /* cor de fundo */
+}
+
+.dia-config label {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  align-items: center;  /* centraliza verticalmente */
+  justify-content: center;  /* centraliza horizontalmente */
+  margin-bottom: 10px;  /* espaço externo abaixo */
+  font-weight: bold;  /* peso da fonte */
+}
+
+/* Inputs de horário dentro do dia */
+.horario-inputs {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  flex-direction: column;  /* empilha itens de cima para baixo */
+  gap: 6px;  /* espaço entre itens flex/grid */
+  font-size: 11px;  /* tamanho da fonte */
+}
+
+.horario-linha {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  gap: 8px;  /* espaço entre itens flex/grid */
+  justify-content: center;  /* centraliza horizontalmente */
+}
+
+.horario-campo {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  flex-direction: column;  /* empilha itens de cima para baixo */
+  align-items: center;  /* centraliza verticalmente */
+}
+
+.horario-campo label {
+  margin: 0 0 2px;  /* zera margem */
+  font-size: 10px;  /* tamanho da fonte */
+}
+
+.horario-campo input {
+  width: 80px;  /* largura */
+  padding: 6px;  /* espaço interno */
+  text-align: center;  /* texto centralizado */
+  font-size: 13px;  /* tamanho da fonte */
+}
+
+/* ========== MÁQUINAS (containers Tear 01-04) ========== */
+
+.maquina {
+  border: 2px solid #34495e;  /* borda */
+  border-radius: 8px;  /* cantos arredondados */
+  padding: 12px;  /* espaço interno */
+  background: #fff;  /* fundo branco */
+  margin-bottom: 15px;  /* espaço externo abaixo */
+}
+
+/* Cabeçalho da máquina (título + botões) */
+.maquina-header {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  justify-content: space-between;  /* distribui com espaço entre */
+  align-items: center;  /* centraliza verticalmente */
+  margin-bottom: 10px;  /* espaço externo abaixo */
+  padding-bottom: 8px;  /* espaço interno abaixo */
+  border-bottom: 2px solid #ecf0f1;  /* borda só embaixo */
+  flex-wrap: wrap;  /* quebra linha quando não cabe */
+  gap: 10px;  /* espaço entre itens flex/grid */
+}
+
+/* Nome da máquina em vermelho */
+.maquina-titulo {
+  color: #e74c3c;  /* cor do texto */
+  font-size: 16px;  /* tamanho da fonte */
+  font-weight: bold;  /* peso da fonte */
+}
+
+/* ========== LINHAS DE SERVIÇO (cada serviço dentro da máquina) ========== */
+
+.linha {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  gap: 5px;  /* espaço entre itens flex/grid */
+  align-items: center;  /* centraliza verticalmente */
+  margin: 6px 0;  /* espaço externo */
+  padding: 8px;  /* espaço interno */
+  background: #f8f9fa;  /* cor de fundo */
+  border-radius: 4px;  /* cantos arredondados */
+  flex-wrap: wrap;  /* quebra linha quando não cabe */
+  font-size: 12px;  /* tamanho da fonte */
+  border-left: 4px solid #bdc3c7;  /* borda só na esquerda */
+}
+
+/* Verde = finalizada */
+.linha.finalizada {
+  border-left-color: #27ae60;  /* borda só na esquerda */
+  background: #d5f4e6;  /* cor de fundo */
+}
+
+/* Amarelo = em andamento */
+.linha.andamento {
+  border-left-color: #f39c12;  /* borda só na esquerda */
+  background: #fef9e7;  /* cor de fundo */
+}
+
+/* Cinza = pendente */
+.linha.pendente {
+  border-left-color: #95a5a6;  /* borda só na esquerda */
+}
+
+/* Laranja = pausado */
+.linha.pausado {
+  border-left-color: #e67e22;  /* borda só na esquerda */
+  background: #fdeaa7;  /* cor de fundo */
+}
+
+/* Labels dentro da linha */
+.linha label {
+  font-weight: bold;  /* peso da fonte */
+  color: #2c3e50;  /* cor do texto */
+  font-size: 11px;  /* tamanho da fonte */
+  display: inline;  /* tipo de exibição */
+  margin-right: 2px;  /* espaço externo à direita */
+}
+
+/* Inputs dentro da linha */
+.linha input {
+  padding: 4px;  /* espaço interno */
+  border: 1px solid #bdc3c7;  /* borda fina */
+  border-radius: 3px;  /* cantos arredondados */
+  text-align: center;  /* texto centralizado */
+  font-size: 12px;  /* tamanho da fonte */
+}
+
+/* Tamanhos específicos dos inputs */
+.linha input.nome {
+  width: 100px;  /* largura */
+}
+
+.linha input.num {
+  width: 60px;  /* largura */
+}
+
+.linha input.tempo {
+  width: 55px;  /* largura */
+}
+
+.linha input.dt {
+  width: 155px;  /* largura */
+}
+
+/* Data e hora separados (monospace pra alinhar) */
+.linha input.hi-data-txt {
+  width: 85px;  /* largura */
+  font-family: monospace;  /* fonte do texto */
+}
+
+.linha input.hi-hora-txt {
+  width: 50px;  /* largura */
+  font-family: monospace;  /* fonte do texto */
+}
+
+.linha input.de-texto {
+  width: 85px;  /* largura */
+  font-family: monospace;  /* fonte do texto */
+}
+
+/* Campo de hora fim (fundo verde claro) */
+.linha input.fim {
+  width: 110px;  /* largura */
+  background: #e8f5e8;  /* cor de fundo */
+}
+
+/* Campo "Faltam" (vermelho, fica verde quando zero) */
+.linha input.faltam {
+  width: 60px;  /* largura */
+  background: #e74c3c;  /* cor de fundo */
+  color: #fff;  /* texto branco */
+  font-weight: bold;  /* peso da fonte */
+}
+
+.linha input.faltam.zero {
+  background: #27ae60;  /* cor de fundo */
+}
+
+/* ========== BOTÕES PEQUENOS DA LINHA (↑ ↓ ⏸ ▶ ✓ ↩ ✕) ========== */
+
+.lb {
+  border: none;  /* sem borda */
+  border-radius: 4px;  /* cantos arredondados */
+  width: 24px;  /* largura */
+  height: 24px;  /* altura */
+  cursor: pointer;  /* cursor de mão (clicável) */
+  font-size: 11px;  /* tamanho da fonte */
+  margin-left: 2px;  /* espaço externo à esquerda */
+  color: #fff;  /* texto branco */
+}
+
+/* Subir na fila */
+.lb.up {
+  background: #27ae60;  /* cor de fundo */
+}
+
+/* Descer na fila */
+.lb.down {
+  background: #e67e22;  /* cor de fundo */
+}
+
+/* Pausar */
+.lb.pause {
+  background: #f39c12;  /* cor de fundo */
+}
+
+/* Retomar */
+.lb.play {
+  background: #27ae60;  /* cor de fundo */
+}
+
+/* Finalizar */
+.lb.check {
+  background: #27ae60;  /* cor de fundo */
+}
+
+/* Retornar pra entrada */
+.lb.ret {
+  background: #9b59b6;  /* cor de fundo */
+}
+
+/* Remover */
+.lb.rem {
+  background: #e74c3c;  /* cor de fundo */
+}
+
+/* Desabilitado */
+.lb:disabled {
+  background: #bdc3c7;  /* cor de fundo */
+  cursor: not-allowed;  /* tipo do cursor */
+}
+
+/* ========== RESULTADO DE TEMPO (barra escura no rodapé da máquina) ========== */
+
+.resultado {
+  margin-top: 15px;  /* espaço externo acima */
+  padding: 12px;  /* espaço interno */
+  background: linear-gradient(135deg, #2c3e50, #34495e);  /* degradê */
+  border-radius: 8px;  /* cantos arredondados */
+  text-align: center;  /* texto centralizado */
+}
+
+.tempo-info {
+  color: #fff;  /* texto branco */
+  font-size: 14px;  /* tamanho da fonte */
+}
+
+/* Tempo total em verde grande */
+.tempo-info .tt {
+  color: #27ae60;  /* cor do texto */
+  font-size: 20px;  /* tamanho da fonte */
+}
+
+/* ========== NOTIFICAÇÕES (toast canto superior direito) ========== */
+
+.notif {
+  position: fixed;  /* fixo na tela, não rola */
+  top: 20px;  /* posição */
+  right: 20px;  /* posição */
+  padding: 15px 25px;  /* espaço interno */
+  border-radius: 8px;  /* cantos arredondados */
+  color: #fff;  /* texto branco */
+  font-weight: bold;  /* peso da fonte */
+  z-index: 10000;  /* camada de sobreposição */
+}
+
+.notif.success {
+  background: #27ae60;  /* cor de fundo */
+}
+
+.notif.error {
+  background: #e74c3c;  /* cor de fundo */
+}
+
+.notif.info {
+  background: #1a56db;  /* cor de fundo */
+}
+
+/* ============================================================
+   5. RODAPÉ — Footer com fundo.png
+   Presente em TODAS as páginas
+   ============================================================ */
+
+/* ========== RODAPÉ (barra escura no final da página) ========== */
+
+.rodape {
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+  background: url('fundo.png') center 55%/cover no-repeat;  /* imagem de fundo */
+  color: #fff;  /* texto branco */
+  text-align: center;  /* texto centralizado */
+  padding: 20px;  /* espaço interno */
+  position: relative;  /* referência para filhos absolutos */
+}
+
+/* Camada escura por cima para ler o texto */
+.rodape::before {
+  content: '';  /* conteúdo gerado (pseudo-elemento) */
+  position: absolute;  /* posição absoluta em relação ao pai */
+  top: 0; left: 0; right: 0; bottom: 0;  /* colado no topo */
+  background: rgba(0, 15, 40, 0.65);  /* fundo semitransparente */
+}
+
+/* Texto fica acima da camada escura */
+.rodape div {
+  position: relative;  /* referência para filhos absolutos */
+  z-index: 1;  /* camada de sobreposição */
+}
+
+/* ============================================================
+   6. ABA PRODUÇÃO — Lista de Entrada (estilo antigo)
+   Serviços, filtros, badges usados na aba Produção
+   ============================================================ */
+
+/* ========== LISTA DE ENTRADA (serviços aguardando produção) ========== */
+
+#lista-ent {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  flex-direction: column;  /* empilha itens de cima para baixo */
+  gap: 8px;  /* espaço entre itens flex/grid */
+  max-height: 500px;  /* altura máxima */
+  overflow-y: auto;  /* scroll vertical quando necessário */
+  padding: 5px;  /* espaço interno */
+}
+
+/* Cabeçalho azul da lista (nomes das colunas) */
+.lista-header {
+  display: grid;  /* ativa grid layout */
+  grid-template-columns: 1.5fr 0.6fr 0.5fr 0.5fr 0.6fr 0.6fr 0.8fr 0.8fr 0.8fr;  /* define colunas do grid */
+  align-items: center;  /* centraliza verticalmente */
+  padding: 14px 16px;  /* espaço interno */
+  background: linear-gradient(135deg, #1a56db, #1e40af);  /* degradê */
+  color: #fff;  /* texto branco */
+  border-radius: 10px;  /* cantos arredondados */
+  gap: 10px;  /* espaço entre itens flex/grid */
+  font-size: 12px;  /* tamanho da fonte */
+  font-weight: 600;  /* semi-negrito */
+  text-transform: uppercase;  /* texto em MAIÚSCULAS */
+  letter-spacing: 0.5px;  /* espaço entre letras */
+  margin-bottom: 10px;  /* espaço externo abaixo */
+  box-shadow: 0 4px 15px rgba(26, 86, 219, 0.3);  /* sombra do elemento */
+}
+
+.lista-header span {
+  text-align: center;  /* texto centralizado */
+}
+
+.lista-header .col-nome {
+  text-align: left;  /* texto alinhado à esquerda */
+}
+
+/* ========== ITEM DE SERVIÇO NA LISTA (cada linha de serviço) ========== */
+
+.serv-item {
+  display: grid;  /* ativa grid layout */
+  grid-template-columns: 1.5fr 0.6fr 0.5fr 0.5fr 0.6fr 0.6fr 0.8fr 0.8fr 0.8fr;  /* define colunas do grid */
+  align-items: center;  /* centraliza verticalmente */
+  padding: 14px 16px;  /* espaço interno */
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);  /* degradê */
+  border-radius: 10px;  /* cantos arredondados */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);  /* sombra do elemento */
+  border-left: 5px solid #1a56db;  /* borda só na esquerda */
+  transition: all 0.2s ease;  /* animação suave na mudança */
+  gap: 10px;  /* espaço entre itens flex/grid */
+}
+
+/* Efeito hover (desliza pra direita) */
+.serv-item:hover {
+  transform: translateX(5px);  /* move para esquerda/direita */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  /* sombra do elemento */
+}
+
+/* FBR = borda vermelha, fundo rosado */
+.serv-item.fbr {
+  border-left-color: #dc2626;  /* borda só na esquerda */
+  background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);  /* degradê */
+}
+
+/* FPT = borda escura, fundo acinzentado */
+.serv-item.fpt {
+  border-left-color: #1e293b;  /* borda só na esquerda */
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);  /* degradê */
+}
+
+/* Coluna nome do serviço */
+.serv-item .col-nome {
+  font-weight: 600;  /* semi-negrito */
+  color: #1e293b;  /* cor do texto */
+  font-size: 14px;  /* tamanho da fonte */
+  overflow: hidden;  /* esconde conteúdo que vazar */
+  text-overflow: ellipsis;  /* reticências quando texto não cabe */
+  white-space: nowrap;  /* texto não quebra linha */
+}
+
+/* Coluna tipo (FBR/FPT badge) */
+.serv-item .col-tipo {
+  justify-self: center;
+}
+
+/* Coluna dimensões (largura x comprimento) */
+.serv-item .col-dim {
+  text-align: center;  /* texto centralizado */
+  color: #64748b;  /* cor do texto */
+  font-size: 13px;  /* tamanho da fonte */
+  background: #f1f5f9;  /* cor de fundo */
+  padding: 4px 8px;  /* espaço interno */
+  border-radius: 6px;  /* cantos arredondados */
+}
+
+/* Coluna numérica (unidades, batidas) */
+.serv-item .col-num {
+  text-align: center;  /* texto centralizado */
+  color: #475569;  /* cor do texto */
+  font-weight: 500;  /* peso médio */
+  font-size: 13px;  /* tamanho da fonte */
+}
+
+/* Coluna tempo (destaque azul) */
+.serv-item .col-tempo {
+  text-align: center;  /* texto centralizado */
+  color: #1a56db;  /* cor do texto */
+  font-weight: 700;  /* negrito */
+  font-size: 14px;  /* tamanho da fonte */
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);  /* degradê */
+  padding: 6px 10px;  /* espaço interno */
+  border-radius: 8px;  /* cantos arredondados */
+}
+
+/* Coluna data */
+.serv-item .col-data {
+  text-align: center;  /* texto centralizado */
+  color: #94a3b8;  /* cor do texto */
+  font-size: 12px;  /* tamanho da fonte */
+  font-weight: 500;  /* peso médio */
+}
+
+/* Coluna ações (botões editar/excluir) */
+.serv-item .col-acoes {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  gap: 6px;  /* espaço entre itens flex/grid */
+  justify-content: center;  /* centraliza horizontalmente */
+}
+
+.serv-item .col-acoes button {
+  width: 36px;  /* largura */
+  height: 36px;  /* altura */
+  border-radius: 8px;  /* cantos arredondados */
+  border: none;  /* sem borda */
+  cursor: pointer;  /* cursor de mão (clicável) */
+  font-size: 14px;  /* tamanho da fonte */
+  transition: all 0.2s;  /* animação suave na mudança */
+}
+
+/* Botão verde nas ações */
+.serv-item .col-acoes .btn-sucesso {
+  background: linear-gradient(135deg, #22c55e, #16a34a);  /* degradê */
+}
+
+.serv-item .col-acoes .btn-sucesso:hover {
+  background: linear-gradient(135deg, #16a34a, #15803d);  /* degradê */
+  transform: scale(1.1);  /* aumenta/diminui tamanho */
+}
+
+/* Botão vermelho nas ações */
+.serv-item .col-acoes .btn-perigo {
+  background: linear-gradient(135deg, #ef4444, #dc2626);  /* degradê */
+}
+
+.serv-item .col-acoes .btn-perigo:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);  /* degradê */
+  transform: scale(1.1);  /* aumenta/diminui tamanho */
+}
+
+/* ========== FILTROS (botões redondos: Todos, FBR, FPT) ========== */
+
+.filtro-btn {
+  background: #fff;  /* fundo branco */
+  border: 2px solid #e2e8f0;  /* borda */
+  padding: 8px 16px;  /* espaço interno */
+  border-radius: 25px;  /* cantos arredondados */
+  cursor: pointer;  /* cursor de mão (clicável) */
+  font-size: 12px;  /* tamanho da fonte */
+  font-weight: 600;  /* semi-negrito */
+  color: #64748b;  /* cor do texto */
+  transition: all 0.2s;  /* animação suave na mudança */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);  /* sombra do elemento */
+}
+
+.filtro-btn:hover {
+  border-color: #1a56db;  /* cor da borda */
+  color: #1a56db;  /* cor do texto */
+  transform: translateY(-2px);  /* move para cima/baixo */
+}
+
+/* Filtro ativo (azul preenchido) */
+.filtro-btn.ativo {
+  background: linear-gradient(135deg, #1a56db, #1e40af);  /* degradê */
+  color: #fff;  /* texto branco */
+  border-color: transparent;  /* cor da borda */
+  box-shadow: 0 4px 15px rgba(26, 86, 219, 0.4);  /* sombra do elemento */
+}
+
+/* ========== BADGES (etiquetas FBR/FPT coloridas) ========== */
+
+.serv-info {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  gap: 12px;  /* espaço entre itens flex/grid */
+  flex-wrap: wrap;  /* quebra linha quando não cabe */
+  align-items: center;  /* centraliza verticalmente */
+}
+
+.badge {
+  display: inline-block;  /* tipo de exibição */
+  padding: 5px 12px;  /* espaço interno */
+  border-radius: 20px;  /* cantos arredondados */
+  font-size: 11px;  /* tamanho da fonte */
+  font-weight: 700;  /* negrito */
+  color: #fff;  /* texto branco */
+  text-transform: uppercase;  /* texto em MAIÚSCULAS */
+  letter-spacing: 0.5px;  /* espaço entre letras */
+}
+
+/* FBR = vermelho */
+.badge-fbr {
+  background: linear-gradient(135deg, #ef4444, #dc2626);  /* degradê */
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);  /* sombra do elemento */
+}
+
+/* FPT = preto/escuro */
+.badge-fpt {
+  background: linear-gradient(135deg, #1e293b, #0f172a);  /* degradê */
+  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.3);  /* sombra do elemento */
+}
+
+/* ========== TABELA (finalizados, histórico de produção) ========== */
+
+.tabela {
+  width: 100%;  /* largura total do pai */
+  border-collapse: collapse;  /* borda */
+  margin-top: 15px;  /* espaço externo acima */
+}
+
+.tabela th {
+  background: #014716;  /* cor de fundo */
+  color: #fff;  /* texto branco */
+  padding: 10px;  /* espaço interno */
+  text-align: left;  /* texto alinhado à esquerda */
+  font-size: 13px;  /* tamanho da fonte */
+}
+
+.tabela td {
+  padding: 10px;  /* espaço interno */
+  border-bottom: 1px solid #ddd;  /* borda só embaixo */
+  font-size: 13px;  /* tamanho da fonte */
+}
+
+/* ============================================================
+   7. ABA CADASTRO ME — Master Etiqueta
+   Formulário, lista de MEs, stats, modais de edição
+   Fundo: fundo-me.png (glassmorphism)
+   ============================================================ */
+
+/* ========== MASTER ETIQUETA - ME (estilo etiqueta glassmorphism) ========== */
+
+/* Página ME com fundo próprio */
+.me-pagina {
+    background: url('fundo-me.png') center / cover no-repeat;  /* imagem de fundo */
+    position: relative;  /* referência para filhos absolutos */
+    z-index: 1;  /* camada de sobreposição */
+    overflow: visible;  /* permite conteúdo vazar (dropdown) */
+    min-height: 75vh;  /* altura mínima */
+    padding: 25px 20px 40px;  /* espaço interno */
+    margin: 0 -20px px -20px;  /* zera margem */
+    flex: 1;  /* ocupa todo espaço disponível */
+}
+
+/* Layout flex: form + stats lado a lado */
+.me-layout {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    gap: 30px;  /* espaço entre itens flex/grid */
+    justify-content: center;  /* centraliza horizontalmente */
+    align-items: center;  /* centraliza verticalmente */
+    max-width: 1800px;  /* largura máxima */
+    margin: 0 auto;  /* zera margem */
+    min-height: 75vh;  /* altura mínima */
+}
+
+/* Card do formulário - glassmorphism */
+.me-form-card {
+    flex: 1;  /* ocupa todo espaço disponível */
+    background: rgba(255, 255, 255, 0.15);  /* fundo semitransparente */
+    backdrop-filter: blur(10px);  /* desfoca o fundo atrás (efeito vidro) */
+    -webkit-backdrop-filter: blur(10px);  /* desfoca o fundo atrás (efeito vidro) */
+    border: 1px solid rgba(255, 255, 255, 0.2);  /* borda fina */
+    border-radius: 18px;  /* cantos arredondados */
+    padding: 60px 45px;  /* espaço interno */
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);  /* sombra do elemento */
+    min-height: auto;  /* altura mínima */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+}
+
+.me-form-card h2 {
+    font-size: 24px;  /* tamanho da fonte */
+    font-weight: 700;  /* negrito */
+    color: #1e293b;  /* cor do texto */
+    margin-bottom: 30px;  /* espaço externo abaixo */
+    border-bottom: none;  /* borda só embaixo */
+}
+
+/* Campos do formulário ME */
+.me-campo {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    align-items: center;  /* centraliza verticalmente */
+    padding: 14px 0;  /* espaço interno */
+    border-bottom: 1px solid #f1f1f1;  /* borda só embaixo */
+}
+
+.me-campo:last-of-type { border-bottom: none; }
+
+.me-campo label {
+    min-width: 140px;  /* largura mínima */
+    font-weight: 600;  /* semi-negrito */
+    color: #374151;  /* cor do texto */
+    font-size: 15px;  /* tamanho da fonte */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+}
+
+.me-campo label .me-req { color: #c0392b; }
+
+.me-campo input {
+    flex: 1;  /* ocupa todo espaço disponível */
+    padding: 12px 16px;  /* espaço interno */
+    border: 1px solid #e0e0e0;  /* borda fina */
+    border-radius: 8px;  /* cantos arredondados */
+    font-size: 15px;  /* tamanho da fonte */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    background: #fafafa;  /* cor de fundo */
+    transition: all 0.2s;  /* animação suave na mudança */
+}
+
+.me-campo input:focus {
+    outline: none;  /* remove contorno de foco */
+    border-color: rgb(0, 32, 80);  /* cor da borda */
+    background: #fff;  /* fundo branco */
+    box-shadow: 0 0 0 3px rgba(0,32,80,0.1);  /* sombra do elemento */
+}
+
+.me-campo input::placeholder { color: #b0b0b0; }
+
+/* Botão cadastrar ME */
+.me-btn-cadastrar {
+    width: 100%;  /* largura total do pai */
+    padding: 16px;  /* espaço interno */
+    margin-top: 20px;  /* espaço externo acima */
+    background: linear-gradient(135deg, rgb(0, 32, 80), rgb(0, 50, 120));  /* degradê */
+    color: #fff;  /* texto branco */
+    border: none;  /* sem borda */
+    border-radius: 12px;  /* cantos arredondados */
+    font-size: 16px;  /* tamanho da fonte */
+    font-weight: 700;  /* negrito */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    cursor: pointer;  /* cursor de mão (clicável) */
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    align-items: center;  /* centraliza verticalmente */
+    justify-content: center;  /* centraliza horizontalmente */
+    gap: 10px;  /* espaço entre itens flex/grid */
+    transition: all 0.2s;  /* animação suave na mudança */
+    letter-spacing: 0.3px;  /* espaço entre letras */
+}
+
+.me-btn-cadastrar:hover {
+    background: linear-gradient(135deg, rgb(0, 50, 120), rgb(0, 20, 60));  /* degradê */
+    transform: translateY(-2px);  /* move para cima/baixo */
+    box-shadow: 0 8px 25px rgba(0,32,80,0.35);  /* sombra do elemento */
+}
+
+/* Stats laterais - glassmorphism */
+.me-stats-lateral {
+    background: rgba(255, 255, 255, 0.15);  /* fundo semitransparente */
+    backdrop-filter: blur(10px);  /* desfoca o fundo atrás (efeito vidro) */
+    -webkit-backdrop-filter: blur(10px);  /* desfoca o fundo atrás (efeito vidro) */
+    border: 1px solid rgba(255, 255, 255, 0.2);  /* borda fina */
+    border-radius: 18px;  /* cantos arredondados */
+    padding: 20px;  /* espaço interno */
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);  /* sombra do elemento */
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    flex-direction: column;  /* empilha itens de cima para baixo */
+    gap: 0;  /* espaço entre itens flex/grid */
+    min-width: 220px;  /* largura mínima */
+    align-self: center;
+    overflow: hidden;  /* esconde conteúdo que vazar */
+}
+
+.me-stat-box {
+    padding: 60px 50px;  /* espaço interno */
+    text-align: center;  /* texto centralizado */
+    cursor: pointer;  /* cursor de mão (clicável) */
+    transition: all 0.2s;  /* animação suave na mudança */
+    border-radius: 0;  /* cantos arredondados */
+    box-shadow: none;  /* sombra do elemento */
+    background: transparent;  /* fundo transparente */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+}
+
+.me-stat-box:first-child { border-radius: 12px 12px 0 0; }
+.me-stat-box:last-child { border-radius: 0 0 12px 12px; }
+
+.me-stat-box:hover {
+    transform: none;  /* transformação */
+    filter: brightness(1.05);
+    box-shadow: none;  /* sombra do elemento */
+}
+
+.me-stat-box.me-destaque {
+    background: linear-gradient(135deg, rgb(0, 32, 80), rgb(0, 50, 120));  /* degradê */
+    color: #fff;  /* texto branco */
+    border: none;  /* sem borda */
+    cursor: pointer;  /* cursor de mão (clicável) */
+    transition: all 0.2s;  /* animação suave na mudança */
+    box-shadow: 0 4px 15px rgba(0, 32, 80, 0.3);  /* sombra do elemento */
+}
+
+.me-stat-box.me-destaque:hover {
+    background: linear-gradient(135deg, rgb(0, 50, 120), rgb(0, 20, 60));  /* degradê */
+    transform: translateY(-2px);  /* move para cima/baixo */
+    box-shadow: 0 8px 25px rgba(0, 32, 80, 0.35);  /* sombra do elemento */
+}
+
+.me-stat-box.me-destaque:active {
+    transform: translateY(0) scale(0.97);  /* move para cima/baixo */
+}
+
+.me-stat-box.me-destaque i,
+.me-stat-box.me-destaque h3,
+.me-stat-box.me-destaque p { color: #fff; }
+
+.me-stat-box i { font-size: 22px; margin-bottom: 6px; display: block; }
+.me-stat-box.me-destaque i { opacity: 0.85; }
+.me-stat-box h3 { font-size: 44px; font-weight: 800; line-height: 1.1; }
+.me-stat-box p { font-size: 14px; font-weight: 500; margin-top: 2px; }
+.me-stat-box:not(.me-destaque) i { color: rgb(0, 32, 80); }
+.me-stat-box:not(.me-destaque) h3 { color: #1e293b; }
+.me-stat-box:not(.me-destaque) p { color: #64748b; }
+.me-stat-box.me-destaque p { opacity: 0.85; }
+
+/* Área central da lista ME - glassmorphism */
+.me-area-central {
+    display: none;  /* escondido */
+    background: rgba(255, 255, 255, 0.15);  /* fundo semitransparente */
+    backdrop-filter: blur(10px);  /* desfoca o fundo atrás (efeito vidro) */
+    -webkit-backdrop-filter: blur(10px);  /* desfoca o fundo atrás (efeito vidro) */
+    border: 1px solid rgba(255, 255, 255, 0.2);  /* borda fina */
+    border-radius: 18px;  /* cantos arredondados */
+    padding: 30px 35px;  /* espaço interno */
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);  /* sombra do elemento */
+    max-width: 1800px;  /* largura máxima */
+    margin: 10px auto 20px;  /* espaço externo */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+}
+
+.me-area-central.ativo { display: block; }
+
+.me-area-central h2 {
+    font-size: 20px;  /* tamanho da fonte */
+    font-weight: 700;  /* negrito */
+    color: #1e293b;  /* cor do texto */
+    margin-bottom: 20px;  /* espaço externo abaixo */
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    align-items: center;  /* centraliza verticalmente */
+    justify-content: space-between;  /* distribui com espaço entre */
+    border-bottom: none;  /* borda só embaixo */
+}
+
+.me-btn-fechar-lista {
+    background: none;
+    border: 2px solid #e0e0e0;  /* borda */
+    border-radius: 8px;  /* cantos arredondados */
+    padding: 6px 14px;  /* espaço interno */
+    cursor: pointer;  /* cursor de mão (clicável) */
+    font-size: 13px;  /* tamanho da fonte */
+    font-weight: 600;  /* semi-negrito */
+    color: #64748b;  /* cor do texto */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    transition: all 0.2s;  /* animação suave na mudança */
+}
+.me-btn-fechar-lista:hover { border-color: rgb(0, 32, 80); color: rgb(0, 32, 80); }
+
+/* Busca ME */
+.me-busca-area {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    gap: 10px;  /* espaço entre itens flex/grid */
+    margin-bottom: 20px;  /* espaço externo abaixo */
+}
+
+.me-busca-area input {
+    flex: 1;  /* ocupa todo espaço disponível */
+    padding: 12px 16px;  /* espaço interno */
+    border: 2px solid #f0eded;  /* borda */
+    border-radius: 10px;  /* cantos arredondados */
+    font-size: 14px;  /* tamanho da fonte */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    transition: all 0.2s;  /* animação suave na mudança */
+}
+
+.me-busca-area input:focus {
+    outline: none;  /* remove contorno de foco */
+    border-color: rgb(0, 32, 80);  /* cor da borda */
+}
+
+/* Header da lista ME */
+.me-lista-header {
+    display: grid;  /* ativa grid layout */
+    grid-template-columns: 0.8fr 2fr 0.6fr 0.6fr 0.6fr 0.8fr 1fr;  /* define colunas do grid */
+    padding: 12px 16px;  /* espaço interno */
+    background: linear-gradient(135deg, rgb(0, 32, 80), rgb(0, 50, 120));  /* degradê */
+    color: #fff;  /* texto branco */
+    border-radius: 10px;  /* cantos arredondados */
+    font-size: 12px;  /* tamanho da fonte */
+    font-weight: 600;  /* semi-negrito */
+    text-transform: uppercase;  /* texto em MAIÚSCULAS */
+    letter-spacing: 0.5px;  /* espaço entre letras */
+    margin-bottom: 8px;  /* espaço externo abaixo */
+    gap: 10px;  /* espaço entre itens flex/grid */
+}
+
+.me-lista-header span { text-align: center; }
+.me-lista-header span:nth-child(1) { text-align: left; }
+.me-lista-header span:nth-child(2) { text-align: left; }
+
+/* Item da lista ME */
+#lista-me { max-height: 500px; overflow-y: auto; padding-right: 4px; }
+#lista-me::-webkit-scrollbar { width: 6px; }
+#lista-me::-webkit-scrollbar-track { background: transparent; }
+#lista-me::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 10px; }
+#lista-me::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+
+.me-item {
+    display: grid;  /* ativa grid layout */
+    grid-template-columns: 0.8fr 2fr 0.6fr 0.6fr 0.6fr 0.8fr 1fr;  /* define colunas do grid */
+    padding: 14px 16px;  /* espaço interno */
+    background: #fff;  /* fundo branco */
+    border-radius: 10px;  /* cantos arredondados */
+    margin-bottom: 6px;  /* espaço externo abaixo */
+    border-left: 4px solid rgb(0, 32, 80);  /* borda só na esquerda */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);  /* sombra do elemento */
+    align-items: center;  /* centraliza verticalmente */
+    font-size: 14px;  /* tamanho da fonte */
+    transition: all 0.15s;  /* animação suave na mudança */
+    gap: 10px;  /* espaço entre itens flex/grid */
+}
+
+.me-item:hover {
+    transform: translateX(4px);  /* move para esquerda/direita */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);  /* sombra do elemento */
+}
+
+.me-item .codigo {
+    font-weight: 700;  /* negrito */
+    color: rgb(0, 32, 80);  /* cor do texto */
+    cursor: pointer;  /* cursor de mão (clicável) */
+}
+.me-item .codigo:hover { text-decoration: underline; }
+.me-item .nome { font-weight: 600; color: #1e293b; }
+.me-item .dim { text-align: center; color: #64748b; }
+.me-item .bat { text-align: center; color: rgb(0, 32, 80); font-weight: 600; }
+.me-item .data { text-align: center; color: #94a3b8; font-size: 12px; }
+.me-item .acoes { display: flex; gap: 6px; justify-content: center; }
+
+.me-item .acoes button {
+    width: 32px; height: 32px;  /* largura */
+    border-radius: 8px;  /* cantos arredondados */
+    border: none;  /* sem borda */
+    cursor: pointer;  /* cursor de mão (clicável) */
+    font-size: 13px;  /* tamanho da fonte */
+    transition: all 0.15s;  /* animação suave na mudança */
+    color: #fff;  /* texto branco */
+}
+.me-item .acoes button:hover { transform: scale(1.1); }
+.btn-hist { background: linear-gradient(135deg, rgb(0, 32, 80), rgb(0, 50, 120)); }
+.btn-edit { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.btn-del { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+/* ME Modal (estilo etiqueta) */
+.me-modal {
+    background: #fff;  /* fundo branco */
+    border-radius: 18px;  /* cantos arredondados */
+    padding: 30px;  /* espaço interno */
+    max-width: 800px;  /* largura máxima */
+    width: 95%;  /* largura */
+    max-height: 85vh;  /* altura máxima */
+    overflow-y: auto;  /* scroll vertical quando necessário */
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);  /* sombra do elemento */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+}
+
+.me-modal-header {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    justify-content: space-between;  /* distribui com espaço entre */
+    align-items: center;  /* centraliza verticalmente */
+    margin-bottom: 20px;  /* espaço externo abaixo */
+    padding-bottom: 15px;  /* espaço interno abaixo */
+    border-bottom: 2px solid rgb(0, 32, 80);  /* borda só embaixo */
+}
+
+.me-modal-header h3 { color: rgb(0, 32, 80); font-size: 20px; }
+
+.me-modal-info {
+    display: grid;  /* ativa grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));  /* define colunas do grid */
+    gap: 15px;  /* espaço entre itens flex/grid */
+    margin-bottom: 20px;  /* espaço externo abaixo */
+    padding: 15px;  /* espaço interno */
+    background: #faf8f8;  /* cor de fundo */
+    border-radius: 12px;  /* cantos arredondados */
+}
+
+.me-modal-info-item { text-align: center; }
+.me-modal-info-item .lbl { font-size: 10px; color: #94a3b8; text-transform: uppercase; font-weight: 600; }
+.me-modal-info-item .val { font-size: 20px; font-weight: 800; color: #1e293b; }
+
+.me-modal-edit-field {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    align-items: center;  /* centraliza verticalmente */
+    gap: 12px;  /* espaço entre itens flex/grid */
+    padding: 12px 0;  /* espaço interno */
+    border-bottom: 1px solid #f1f1f1;  /* borda só embaixo */
+}
+.me-modal-edit-field label { min-width: 120px; font-weight: 600; color: #374151; }
+.me-modal-edit-field input {
+    flex: 1;  /* ocupa todo espaço disponível */
+    padding: 10px 14px;  /* espaço interno */
+    border: 1px solid #e0e0e0;  /* borda fina */
+    border-radius: 8px;  /* cantos arredondados */
+    font-size: 14px;  /* tamanho da fonte */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+}
+.me-modal-edit-field input:focus { outline: none; border-color: rgb(0, 32, 80); }
+
+.me-btn-salvar {
+    width: 100%;  /* largura total do pai */
+    padding: 14px;  /* espaço interno */
+    margin-top: 15px;  /* espaço externo acima */
+    background: linear-gradient(135deg, rgb(0, 32, 80), rgb(0, 50, 120));  /* degradê */
+    color: #fff;  /* texto branco */
+    border: none;  /* sem borda */
+    border-radius: 10px;  /* cantos arredondados */
+    font-size: 15px;  /* tamanho da fonte */
+    font-weight: 700;  /* negrito */
+    cursor: pointer;  /* cursor de mão (clicável) */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+}
+.me-btn-salvar:hover { background: linear-gradient(135deg, rgb(0, 50, 120), rgb(0, 20, 60)); }
+
+/* Histórico ME */
+.me-hist-header {
+    display: grid;  /* ativa grid layout */
+    grid-template-columns: 0.5fr 0.8fr 1.2fr 1.2fr 0.5fr;  /* define colunas do grid */
+    padding: 10px 14px;  /* espaço interno */
+    background: rgb(0, 32, 80);
+    color: #fff;  /* texto branco */
+    border-radius: 8px;  /* cantos arredondados */
+    font-size: 12px;  /* tamanho da fonte */
+    font-weight: 600;  /* semi-negrito */
+    margin-bottom: 6px;  /* espaço externo abaixo */
+}
+
+.me-hist-item {
+    display: grid;  /* ativa grid layout */
+    grid-template-columns: 0.5fr 0.8fr 1.2fr 1.2fr 0.5fr;  /* define colunas do grid */
+    padding: 12px 14px;  /* espaço interno */
+    background: #faf8f8;  /* cor de fundo */
+    border-radius: 8px;  /* cantos arredondados */
+    margin-bottom: 6px;  /* espaço externo abaixo */
+    border-left: 4px solid #27ae60;  /* borda só na esquerda */
+    font-size: 13px;  /* tamanho da fonte */
+    align-items: center;  /* centraliza verticalmente */
+}
+
+/* Código ME clicável */
+.col-me {
+    font-weight: 700;  /* negrito */
+    color: rgb(0, 32, 80);  /* cor do texto */
+    cursor: pointer;  /* cursor de mão (clicável) */
+    text-decoration: underline;  /* sublinhado */
+}
+
+.col-me:hover {
+    color: rgb(0, 50, 120);  /* cor do texto */
+}
+
+/* ME Responsivo */
+@media (max-width: 800px) {
+    .me-layout { flex-direction: column; padding-top: 40px; }
+    .me-stats-lateral { flex-direction: column; min-width: auto; align-self: stretch; }
+    .me-stat-box { flex: 1; padding: 20px 15px; }
+    .me-stat-box h3 { font-size: 32px; }
+    .me-form-card { padding: 25px 20px; }
+    .me-campo label { min-width: 100px; font-size: 13px; }
+    .me-lista-header, .me-item { font-size: 12px; }
+    .me-pagina { padding: 15px 10px 0; margin: -15px; margin-top: 0; }
+}
+
+/* Botão roxo (ferramentas) */
+.btn-roxo { background: #9b59b6; }
+.btn-roxo:hover { background: #8e44ad; }
+.stat-card.roxo { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+
+/* ========== AUTOCOMPLETE (busca de ME ao digitar) ========== */
+
+.autocomplete-wrapper {
+  position: relative;  /* referência para filhos absolutos */
+}
+
+/* Lista de sugestões */
+.autocomplete-list {
+  position: absolute;  /* posição absoluta em relação ao pai */
+  top: 100%;  /* posição */
+  left: 0;  /* colado na esquerda */
+  right: 0;  /* colado na direita */
+  background: #fff;  /* fundo branco */
+  border: 2px solid #9b59b6;  /* borda */
+  border-radius: 8px;  /* cantos arredondados */
+  max-height: 200px;  /* altura máxima */
+  overflow-y: auto;  /* scroll vertical quando necessário */
+  z-index: 100;  /* camada de sobreposição */
+  display: none;  /* escondido */
+}
+
+/* Lista visível */
+.autocomplete-list.ativo {
+  display: block;  /* exibe como bloco */
+}
+
+/* Cada item da sugestão */
+.autocomplete-item {
+  padding: 10px 15px;  /* espaço interno */
+  cursor: pointer;  /* cursor de mão (clicável) */
+  border-bottom: 1px solid #eee;  /* borda só embaixo */
+}
+
+.autocomplete-item:hover {
+  background: #f3e8ff;  /* cor de fundo */
+}
+
+/* Código ME em roxo */
+.autocomplete-item .me-codigo {
+  font-weight: bold;  /* peso da fonte */
+  color: #1e40af;  /* cor do texto */
+  margin-right: 10px;  /* espaço externo à direita */
+}
+
+/* Nome do serviço cinza */
+.autocomplete-item .me-nome {
+  color: #666;  /* cor do texto */
+  font-size: 12px;  /* tamanho da fonte */
+}
+
+/* ========== MODAL (popup centralizado com overlay escuro) ========== */
+
+/* Fundo escuro atrás do modal */
+.modal-overlay {
+  display: none;  /* escondido */
+  position: fixed;  /* fixo na tela, não rola */
+  top: 0;  /* colado no topo */
+  left: 0;  /* colado na esquerda */
+  right: 0;  /* colado na direita */
+  bottom: 0;  /* colado embaixo */
+  background: rgba(0, 0, 0, 0.7);  /* fundo semitransparente */
+  z-index: 9999;  /* camada de sobreposição */
+  justify-content: center;  /* centraliza horizontalmente */
+  align-items: center;  /* centraliza verticalmente */
+}
+
+/* Modal visível */
+.modal-overlay.ativo {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+}
+
+/* Conteúdo do modal (caixa branca) */
+.modal-content {
+  background: #fff;  /* fundo branco */
+  border-radius: 15px;  /* cantos arredondados */
+  padding: 25px;  /* espaço interno */
+  max-width: 800px;  /* largura máxima */
+  width: 95%;  /* largura */
+  max-height: 80vh;  /* altura máxima */
+  overflow-y: auto;  /* scroll vertical quando necessário */
+}
+
+/* Cabeçalho do modal (título + botão fechar) */
+.modal-header {
+  display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+  justify-content: space-between;  /* distribui com espaço entre */
+  align-items: center;  /* centraliza verticalmente */
+  margin-bottom: 20px;  /* espaço externo abaixo */
+  padding-bottom: 15px;  /* espaço interno abaixo */
+  border-bottom: 2px solid #9b59b6;  /* borda só embaixo */
+}
+
+.modal-header h3 {
+  color: #9b59b6;  /* cor do texto */
+  font-size: 20px;  /* tamanho da fonte */
+}
+
+/* Botão X vermelho pra fechar */
+.modal-close {
+  background: #e74c3c;  /* cor de fundo */
+  color: #fff;  /* texto branco */
+  border: none;  /* sem borda */
+  width: 35px;  /* largura */
+  height: 35px;  /* altura */
+  border-radius: 50%;  /* cantos arredondados */
+  cursor: pointer;  /* cursor de mão (clicável) */
+  font-size: 18px;  /* tamanho da fonte */
+}
+
+/* Grid de informações dentro do modal */
+.modal-info {
+  display: grid;  /* ativa grid layout */
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));  /* define colunas do grid */
+  gap: 15px;  /* espaço entre itens flex/grid */
+  margin-bottom: 20px;  /* espaço externo abaixo */
+  padding: 15px;  /* espaço interno */
+  background: #f8f9fa;  /* cor de fundo */
+  border-radius: 10px;  /* cantos arredondados */
+}
+
+.modal-info-item {
+  text-align: center;  /* texto centralizado */
+}
+
+/* Label pequeno em cima */
+.modal-info-item .label {
+  font-size: 11px;  /* tamanho da fonte */
+  color: #64748b;  /* cor do texto */
+  text-transform: uppercase;  /* texto em MAIÚSCULAS */
+}
+
+/* Valor grande embaixo */
+.modal-info-item .valor {
+  font-size: 18px;  /* tamanho da fonte */
+  font-weight: bold;  /* peso da fonte */
+  color: #1e293b;  /* cor do texto */
+}
+
+/* ========== HISTÓRICO ME (timeline dentro do modal) ========== */
+
+/* Cabeçalho roxo do histórico */
+.historico-header {
+  display: grid;  /* ativa grid layout */
+  grid-template-columns: 0.6fr 0.9fr 1.2fr 1.2fr 0.5fr;  /* define colunas do grid */
+  gap: 10px;  /* espaço entre itens flex/grid */
+  padding: 10px;  /* espaço interno */
+  background: #9b59b6;  /* cor de fundo */
+  color: #fff;  /* texto branco */
+  border-radius: 8px;  /* cantos arredondados */
+  font-size: 12px;  /* tamanho da fonte */
+  font-weight: 600;  /* semi-negrito */
+  margin-bottom: 8px;  /* espaço externo abaixo */
+}
+
+/* Item do histórico (borda verde = finalizado) */
+.historico-item {
+  display: grid;  /* ativa grid layout */
+  grid-template-columns: 0.6fr 0.9fr 1.2fr 1.2fr 0.5fr;  /* define colunas do grid */
+  gap: 10px;  /* espaço entre itens flex/grid */
+  padding: 12px;  /* espaço interno */
+  background: #f8f9fa;  /* cor de fundo */
+  border-radius: 8px;  /* cantos arredondados */
+  margin-bottom: 8px;  /* espaço externo abaixo */
+  border-left: 4px solid #27ae60;  /* borda só na esquerda */
+  font-size: 13px;  /* tamanho da fonte */
+  align-items: center;  /* centraliza verticalmente */
+}
+
+/* Aguardando = borda amarela */
+.historico-item.aguardando {
+  border-left-color: #f39c12;  /* borda só na esquerda */
+  background: #fef9e7;  /* cor de fundo */
+}
+
+/* Em produção = borda azul */
+.historico-item.em_producao {
+  border-left-color: #3498db;  /* borda só na esquerda */
+  background: #ebf5fb;  /* cor de fundo */
+}
+
+/* Link ME na tabela de finalizados */
+.tabela .me-link {
+  color: #9b59b6;  /* cor do texto */
+  font-weight: bold;  /* peso da fonte */
+  cursor: pointer;  /* cursor de mão (clicável) */
+  text-decoration: underline;  /* sublinhado */
+}
+
+/* ========== ANIMAÇÕES ========== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;  /* transparência (0=invisível, 1=visível) */
+    transform: translateY(10px);  /* move para cima/baixo */
+  }
+  to {
+    opacity: 1;  /* transparência (0=invisível, 1=visível) */
+    transform: translateY(0);  /* move para cima/baixo */
+  }
+}
+
+/* ========== RESPONSIVO (telas menores que 900px) ========== */
+
+@media (max-width: 900px) {
+
+  /* Esconde cabeçalho da lista em mobile */
+  .lista-header {
+    display: none;  /* escondido */
+  }
+
+  /* Lista vira 2 colunas */
+  .serv-item {
+    grid-template-columns: 1fr 1fr;  /* define colunas do grid */
+    gap: 8px;  /* espaço entre itens flex/grid */
+  }
+
+  .serv-item > span {
+    text-align: left !important;  /* texto alinhado à esquerda */
+  }
+}
+
+
+/* ============================================================
+   8. ABA ENTRADA DE SERVIÇO — Novo Layout
+   Formulário + Lista lado a lado (neumorphism)
+   Fundo: etiqueta.jpg
+   Inclui: cards, stats, filtros, autocomplete, toggle tipo,
+   badges, scrollbar, animações, responsivo
+   ============================================================ */
+
+/* Importa a fonte DM Sans do Google Fonts com pesos: 400(normal), 500(médio), 600(semi-negrito), 700(negrito), 800(ultra-negrito) */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
+/* ========== RESET & BASE (zera estilos padrão do navegador) ========== */
+
+/* ========== LAYOUT PRINCIPAL (container dos dois cards lado a lado) ========== */
+.entrada-layout {
+    display: flex;              /* cards lado a lado */
+    gap: 28px;                  /* espaço de 28px entre os cards */
+    max-width: 100%;          /* largura máxima do layout */
+    margin: 0 auto;             /* centraliza horizontalmente */
+    padding: 36px 28px;         /* espaço: 36px topo/base, 28px laterais */
+    align-items: flex-start;    /* alinha cards pelo topo */
+    background: url('etiqueta.jpg') center / cover no-repeat fixed; /* imagem de fundo tela toda */
+    margin-left: 0;  /* espaço externo à esquerda */
+    margin-right: -20px;  /* espaço externo à direita */
+    padding-left: 48px;  /* espaço interno à esquerda */
+    padding-right: 48px;  /* espaço interno à direita */
+    min-height: auto;             /* altura se adapta ao conteúdo */
+    align-items: stretch;       /* os dois cards ficam com mesma altura */
+  }
+
+
+/* ========== CARDS (neumorphism com transparência — deixa a imagem de fundo aparecer) ========== */
+.ent-card {
+    background: rgba(232, 236, 241, 0.80);  /* cinza com 80% opacidade. Diminua para mais transparente (ex: 0.60), aumente para mais sólido (ex: 0.95) */
+    backdrop-filter: blur(14px);             /* desfoca a imagem atrás do card (efeito vidro fosco). Aumente para mais blur */
+    -webkit-backdrop-filter: blur(14px);     /* compatibilidade Safari */
+    border-radius: 20px;        /* cantos arredondados */
+    padding: 32px 30px;         /* espaço interno do card */
+    box-shadow:                 /* sombras neumorphism */
+        8px 8px 20px rgba(0, 0, 0, 0.12),       /* sombra escura embaixo/direita */
+        -6px -6px 16px rgba(255, 255, 255, 0.7), /* sombra clara cima/esquerda */
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);  /* brilho interno no topo */
+    border: 1px solid rgba(255, 255, 255, 0.45); /* borda branca semitransparente */
+}
+
+/* Card do formulário "Adicionar Serviço" */
+.ent-form-card {
+    margin-top: 0;              /* sem margem extra */
+    height: 80vh;               /* altura se adapta ao conteúdo */
+    flex: 1;                    /* ocupa 1 parte do espaço */
+    min-width: 340px;           /* largura mínima */
+}
+
+/* Card da lista "Serviços na Entrada" */
+.ent-lista-card {
+    margin-top: 0;              /* sem margem extra */
+    flex: 2;                    /* ocupa 2 partes do espaço (dobro do form) */
+    min-width: 0;               /* permite encolher */
+    height: 80vh;               /* altura se adapta ao conteúdo */
+    display: flex;              /* ativa flex interno para scroll da lista */
+    flex-direction: column;     /* empilha conteúdo de cima pra baixo */
+    overflow: hidden;           /* IMPORTANTE: impede a lista de vazar para fora do card */
+}
+
+/* ========== TÍTULOS DOS CARDS ========== */
+.ent-card h2 {
+    font-size: 20px;            /* tamanho da fonte do título */
+    font-weight: 700;           /* negrito */
+    color: #1a2332;             /* azul muito escuro */
+    margin-bottom: 24px;        /* espaço abaixo do título */
+    display: flex;              /* ícone e texto lado a lado */
+    align-items: center;        /* centraliza verticalmente */
+    gap: 10px;                  /* espaço entre ícone e texto */
+    letter-spacing: -0.3px;     /* letras mais juntas */
+}
+
+.ent-card h2 i {
+    font-size: 18px;            /* tamanho do ícone do título */
+}
+
+/* ========== FORMULÁRIO (campos de entrada) ========== */
+.ent-campo {
+    margin-bottom: 16px;        /* espaço abaixo de cada campo */
+}
+
+/* Labels (textos como "Código ME", "Nome") */
+.ent-campo label {
+    display: block;             /* label ocupa linha inteira */
+    font-size: 12px;            /* tamanho da fonte */
+    font-weight: 600;           /* semi-negrito */
+    color: #000000;             /* cinza azulado */
+    text-transform: uppercase;  /* TUDO MAIÚSCULO */
+    letter-spacing: 0.4px;      /* espaço entre letras */
+    margin-bottom: 6px;         /* espaço entre label e input */
+}
+
+/* Asterisco vermelho = campo obrigatório */
+.ent-campo label .req {
+    color: #dc2626;             /* vermelho */
+    font-size: 14px;            /* maior para destaque */
+}
+
+/* Inputs e selects */
+.ent-campo input,
+.ent-campo select {
+    width: 100%;                /* largura total */
+    padding: 11px 14px;         /* espaço interno */
+    border: 1px solid rgba(0, 0, 0, 0.08);  /* borda quase invisível */
+    border-radius: 10px;        /* cantos arredondados */
+    font-size: 14px;            /* tamanho do texto */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    font-weight: 500;           /* peso médio */
+    color: #1e293b;             /* azul escuro */
+    background: linear-gradient(145deg, #dfe3e9, #e8ecf2);  /* degradê afundado */
+    box-shadow:                 /* sombra interna = afundado */
+        inset 2px 2px 5px rgba(0, 0, 0, 0.07),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.5);
+    transition: all 0.2s ease;  /* animação suave */
+    outline: none;              /* remove borda padrão */
+}
+
+/* Foco */
+.ent-campo input:focus,
+.ent-campo select:focus {
+    border-color: #3b82f6;      /* borda azul */
+    box-shadow:                 /* afundado + anel azul */
+        inset 2px 2px 5px rgba(0, 0, 0, 0.07),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.5),
+        0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Placeholder */
+.ent-campo input::placeholder {
+    color: #94a3b8;             /* cinza claro */
+    font-weight: 400;           /* peso normal */
+}
+
+/* Select customizado */
+.ent-campo select {
+    cursor: pointer;            /* mãozinha */
+    appearance: none;           /* remove seta padrão */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");  /* seta SVG */
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;        /* espaço para a seta */
+}
+
+/* ========== ROW (Tipo + Data lado a lado) ========== */
+.ent-campo-row {
+    display: flex;              /* lado a lado */
+    gap: 12px;                  /* espaço entre eles */
+}
+
+.ent-campo-row .ent-campo {
+    flex: 1;                    /* cada um ocupa metade */
+}
+
+/* ========== MEDIDAS (box agrupado com borda tracejada) ========== */
+.ent-medidas {
+    min-height: 250px;          /* altura mínima */
+    padding-bottom: 15px;       /* espaço na base */
+    margin: 30px 0 16px;        /* 30px acima, 16px abaixo */
+    background: #f1f5f9;        /* fundo cinza claro */
+    border-radius: 14px;        /* cantos arredondados */
+    border: 1.5px dashed rgba(100, 116, 139, 0.6);  /* borda tracejada cinza */
+    box-shadow:                 /* sombra interna */
+        inset 2px 2px 6px rgba(0, 0, 0, 0.06),
+        inset -2px -2px 6px rgba(255, 255, 255, 0.4);
+    overflow: hidden;           /* esconde conteúdo que vazar */
+}
+
+/* Header do box de medidas */
+.ent-medidas-header {
+    padding: 30px 16px 10px 16px;  /* 30px topo, 16px lados, 10px base */
+    font-size: 12px;            /* tamanho da fonte */
+    font-weight: 700;           /* negrito */
+    color: #475569;             /* cinza escuro */
+    text-transform: uppercase;  /* MAIÚSCULO */
+    letter-spacing: 0.5px;      /* espaço entre letras */
+    display: flex;              /* ícone e texto lado a lado */
+    align-items: center;        /* centraliza verticalmente */
+    gap: 8px;                   /* espaço entre ícone e texto */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);  /* linha divisória */
+}
+
+.ent-medidas-header i {
+    color: #64748b;             /* cor do ícone */
+    font-size: 13px;            /* tamanho do ícone */
+}
+
+/* Grid 2x2 dos campos */
+.ent-medidas-grid {
+    display: grid;              /* layout de grade */
+    grid-template-columns: 1fr 1fr;  /* 2 colunas iguais */
+    gap: 12px;                  /* espaço entre campos */
+    padding: 14px 16px;         /* espaço interno */
+}
+
+/* Labels de medida */
+.ent-medida label {
+    display: block;             /* linha inteira */
+    font-size: 11px;            /* fonte menor */
+    font-weight: 600;           /* semi-negrito */
+    color: #64748b;             /* cinza */
+    margin-bottom: 5px;         /* espaço abaixo */
+    text-transform: uppercase;  /* MAIÚSCULO */
+    letter-spacing: 0.3px;      /* espaço entre letras */
+}
+
+/* Inputs de medida */
+.ent-medida input {
+    width: 100%;                /* largura total */
+    padding: 10px 12px;         /* espaço interno */
+    border: 1px solid rgba(0, 0, 0, 0.06);  /* borda quase invisível */
+    border-radius: 8px;         /* cantos arredondados */
+    font-size: 15px;            /* número maior para leitura */
+    font-weight: 600;           /* semi-negrito */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    color: #1e293b;             /* azul escuro */
+    background: linear-gradient(145deg, #dfe3e9, #e8ecf2);  /* degradê afundado */
+    box-shadow:                 /* sombra interna */
+        inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.45);
+    outline: none;              /* remove borda padrão */
+    transition: all 0.2s;       /* animação */
+}
+
+.ent-medida input:focus {
+    border-color: #3b82f6;      /* borda azul */
+    box-shadow:
+        inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.45),
+        0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+/* ========== BOTÃO ADICIONAR (verde) ========== */
+.ent-btn-add {
+    width: 100%;                /* largura total */
+    padding: 20px;              /* espaço interno */
+    margin-top: 35px;           /* espaço acima */
+    background: linear-gradient(135deg, #22c55e, #16a34a);  /* degradê verde */
+    color: #fff;                /* texto branco */
+    border: none;               /* sem borda */
+    border-radius: 14px;        /* cantos arredondados */
+    font-size: 18px;            /* tamanho da fonte */
+    font-weight: 700;           /* negrito */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    cursor: pointer;            /* mãozinha */
+    display: flex;              /* ícone e texto lado a lado */
+    align-items: center;        /* centraliza vertical */
+    justify-content: center;    /* centraliza horizontal */
+    gap: 8px;                   /* espaço entre ícone e texto */
+    letter-spacing: 0.5px;      /* espaço entre letras */
+    text-transform: uppercase;  /* MAIÚSCULO */
+    box-shadow:
+        4px 4px 12px rgba(34, 197, 94, 0.3),
+        -2px -2px 8px rgba(255, 255, 255, 0.2);
+    transition: all 0.2s;       /* animação */
+}
+
+.ent-btn-add:hover {
+    background: linear-gradient(135deg, #16a34a, #15803d);  /* verde escuro */
+    transform: translateY(-1px);  /* sobe 1px */
+    box-shadow:
+        4px 6px 16px rgba(34, 197, 94, 0.4),
+        -2px -2px 8px rgba(255, 255, 255, 0.2);
+}
+
+.ent-btn-add:active {
+    transform: translateY(0) scale(0.98);  /* volta + encolhe */
+}
+
+/* ========== AUTOCOMPLETE (sugestões de ME) ========== */
+.autocomplete-wrapper {
+    position: relative;         /* referência para lista */
+}
+
+.autocomplete-list {
+    display: none;              /* escondida */
+    position: absolute;         /* flutua */
+    top: calc(100% + 4px);      /* 4px abaixo do input */
+    left: 0; right: 0;         /* mesma largura do input */
+    background: #e8ecf1;        /* fundo cinza */
+    border-radius: 12px;        /* cantos arredondados */
+    box-shadow:
+        6px 6px 16px rgba(0, 0, 0, 0.12),
+        -4px -4px 12px rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.5);  /* borda fina */
+    z-index: 100;               /* na frente */
+    max-height: 240px;          /* altura máxima */
+    overflow-y: auto;           /* scroll */
+    padding: 6px;               /* espaço interno */
+}
+
+.autocomplete-list.ativo { display: block; }  /* visível */
+
+.autocomplete-item {
+    padding: 10px 12px;         /* espaço interno */
+    cursor: pointer;            /* mãozinha */
+    border-radius: 8px;         /* cantos */
+    display: flex;              /* empilhado */
+    flex-direction: column;     /* cima pra baixo */
+    gap: 2px;                   /* espaço */
+    transition: background 0.15s;  /* animação suave na mudança */
+}
+
+.autocomplete-item:hover {
+    background: rgba(59, 130, 246, 0.1);  /* azul transparente */
+}
+
+.me-codigo {
+    font-weight: 700;           /* negrito */
+    font-size: 13px;            /* tamanho */
+    color: #1e40af;             /* azul */
+}
+
+.me-nome {
+    font-size: 12px;            /* menor */
+    color: #64748b;             /* cinza */
+}
+
+/* ========== STATS (Total, FBR, FPT) ========== */
+/* ========== STATS (cards informativos: Total, FBR, FPT) ========== */
+.ent-stats {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    gap: 14px;  /* espaço entre itens flex/grid */
+    margin-bottom: 20px;  /* espaço externo abaixo */
+}
+
+.ent-stat {
+    flex: 1;  /* ocupa todo espaço disponível */
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    align-items: center;  /* centraliza verticalmente */
+    padding: 14px 18px;  /* espaço interno */
+    border-radius: 14px;  /* cantos arredondados */
+    border: 1px solid rgba(0, 0, 0, 0.04);  /* borda fina */
+    gap: 0;  /* espaço entre itens flex/grid */
+}
+
+.ent-stat h3 {
+    font-size: 42px;  /* tamanho da fonte */
+    font-weight: 800;  /* extra-negrito */
+    line-height: 1;  /* altura da linha */
+    color: #1a2332;  /* cor do texto */
+    padding-right: 14px;  /* espaço interno à direita */
+    margin-right: 14px;  /* espaço externo à direita */
+    border-right: 3px solid currentColor;  /* borda só na direita */
+}
+
+.ent-stat-nums {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    flex-direction: column;  /* empilha itens de cima para baixo */
+    align-items: flex-start;  /* alinha pelo topo */
+    gap: 2px;  /* espaço entre itens flex/grid */
+}
+
+.ent-stat strong {
+    font-size: 16px;  /* tamanho da fonte */
+    font-weight: 800;  /* extra-negrito */
+    color: #1a2332;  /* cor do texto */
+    letter-spacing: 0.3px;  /* espaço entre letras */
+}
+
+.ent-stat p {
+    font-size: 13px;  /* tamanho da fonte */
+    font-weight: 700;  /* negrito */
+    color: #64748b;  /* cor do texto */
+    margin-top: 0;  /* espaço externo acima */
+    text-transform: uppercase;  /* texto em MAIÚSCULAS */
+    letter-spacing: 1.5px;  /* espaço entre letras */
+}
+
+.ent-stat p i {
+    margin-right: 4px;  /* espaço externo à direita */
+    font-size: 11px;  /* tamanho da fonte */
+}
+
+.ent-stat.total {
+    background: linear-gradient(145deg, #dce0e7, #e6eaf0);  /* degradê */
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.08), -3px -3px 8px rgba(255,255,255,0.6);  /* sombra do elemento */
+}
+
+.ent-stat.total h3 {
+    color: #15803d;  /* cor do texto */
+    border-right-color: #22c55e;  /* borda só na direita */
+}
+
+.ent-stat.total strong { color: #334155; }
+
+.ent-stat.fbr {
+    background: linear-gradient(145deg, #fde8e8, #fce4e4);  /* degradê */
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.06), -3px -3px 8px rgba(255,255,255,0.5);  /* sombra do elemento */
+}
+
+.ent-stat.fbr h3 {
+    color: #dc2626;  /* cor do texto */
+    border-right-color: #dc2626;  /* borda só na direita */
+}
+
+.ent-stat.fbr strong { color: #334155; }
+
+.ent-stat.fpt {
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);  /* degradê */
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.15), -3px -3px 8px rgba(255,255,255,0.08);  /* sombra do elemento */
+}
+
+.ent-stat.fpt h3 {
+    color: #fff;  /* texto branco */
+    border-right-color: rgba(255,255,255,0.4);  /* borda só na direita */
+}
+
+.ent-stat.fpt strong { color: rgba(255, 255, 255, 0.9); }
+.ent-stat.fpt p { color: rgba(255, 255, 255, 0.6); }
+
+
+/* ========== BUSCA + ATUALIZAR ========== */
+.ent-busca-area {
+    display: flex;              /* lado a lado */
+    gap: 10px;                  /* espaço */
+    margin-bottom: 14px;        /* espaço abaixo */
+}
+
+.ent-busca-input {
+    flex: 1;                    /* ocupa espaço */
+    display: flex;              /* lupa + input */
+    align-items: center;        /* centraliza */
+    gap: 10px;                  /* espaço */
+    padding: 0 14px;            /* lateral */
+    background: linear-gradient(145deg, #dfe3e9, #e8ecf2);  /* afundado */
+    border-radius: 12px;        /* cantos */
+    border: 1px solid rgba(0, 0, 0, 0.06);  /* borda fina */
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.06), inset -2px -2px 5px rgba(255,255,255,0.45);  /* sombra do elemento */
+}
+
+.ent-busca-input i {
+    color: #94a3b8;             /* cinza */
+    font-size: 14px;            /* tamanho */
+}
+
+.ent-busca-input input {
+    flex: 1;                    /* espaço restante */
+    padding: 11px 0;            /* vertical */
+    border: none;               /* sem borda */
+    background: transparent;    /* transparente */
+    font-size: 13px;            /* tamanho */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    color: #1e293b;             /* cor do texto */
+    outline: none;              /* sem borda foco */
+}
+
+.ent-busca-input input::placeholder { color: #94a3b8; }  /* cinza */
+
+/* Botão Atualizar (azul) */
+.ent-btn-refresh {
+    padding: 10px 18px;         /* espaço interno */
+    background: linear-gradient(135deg, #3b82f6, #2563eb);  /* azul */
+    color: #fff;                /* branco */
+    border: none;               /* sem borda */
+    border-radius: 12px;        /* cantos */
+    font-size: 13px;            /* tamanho */
+    font-weight: 600;           /* semi-negrito */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    cursor: pointer;            /* mãozinha */
+    display: flex;              /* ícone + texto */
+    align-items: center;        /* centraliza */
+    gap: 6px;                   /* espaço */
+    box-shadow: 3px 3px 10px rgba(59,130,246,0.25), -2px -2px 6px rgba(255,255,255,0.15);  /* sombra do elemento */
+    transition: all 0.2s;       /* animação */
+    white-space: nowrap;        /* não quebra */
+}
+
+.ent-btn-refresh:hover {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);  /* mais escuro */
+    transform: translateY(-1px);  /* sobe */
+}
+
+/* ========== FILTROS (Todos, FBR, FPT — cores iguais aos cards stats) ========== */
+.ent-filtros {
+    display: flex;              /* lado a lado */
+    gap: 8px;                   /* espaço */
+    margin-bottom: 16px;        /* espaço abaixo */
+    align-items: center;        /* centraliza */
+}
+
+/* Botão filtro (inativo) */
+.ent-filtro {
+    padding: 8px 16px;          /* espaço interno */
+    border: 2px solid rgba(0, 0, 0, 0.06);  /* borda neutra */
+    border-radius: 10px;        /* cantos */
+    font-size: 13px;            /* tamanho */
+    font-weight: 700;           /* negrito */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    cursor: pointer;            /* mãozinha */
+    display: flex;              /* bolinha + texto */
+    align-items: center;        /* centraliza */
+    gap: 8px;                   /* espaço */
+    background: linear-gradient(145deg, #e0e4ea, #e8ecf2);  /* neutro */
+    color: #475569;             /* cinza */
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.07), inset -2px -2px 5px rgba(255,255,255,0.5);  /* sombra do elemento */
+    transition: all 0.25s ease; /* animação */
+    text-transform: uppercase;  /* MAIÚSCULO */
+    letter-spacing: 0.3px;      /* espaço letras */
+}
+
+/* Bolinha dos filtros (inativa = cinza) */
+.filtro-dot {
+    width: 10px;                /* largura */
+    height: 10px;               /* altura */
+    border-radius: 50%;         /* redonda */
+    background: #cbd5e1;        /* cinza */
+    border: 2px solid rgba(0, 0, 0, 0.1);  /* borda */
+    transition: all 0.25s ease; /* animação */
+}
+
+/* Hover (quando não ativo) - cor própria de cada tipo */
+.ent-filtro.todos:not(.ativo):hover {
+    border-color: #22c55e;  /* cor da borda */
+    color: #15803d;  /* cor do texto */
+    box-shadow: 3px 3px 8px rgba(34,197,94,0.12), -2px -2px 6px rgba(255,255,255,0.5);  /* sombra do elemento */
+}
+.ent-filtro.fbr:not(.ativo):hover {
+    border-color: #dc2626;  /* cor da borda */
+    color: #dc2626;  /* cor do texto */
+    box-shadow: 3px 3px 8px rgba(220,38,38,0.12), -2px -2px 6px rgba(255,255,255,0.5);  /* sombra do elemento */
+}
+.ent-filtro.fpt:not(.ativo):hover {
+    border-color: #1a1a1a;  /* cor da borda */
+    color: #1a1a1a;  /* cor do texto */
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.15), -2px -2px 6px rgba(255,255,255,0.5);  /* sombra do elemento */
+}
+
+/* TODOS ativo = verde (igual card Total) */
+.ent-filtro.todos.ativo {
+    background: linear-gradient(145deg, #dce0e7, #e6eaf0);  /* cinza do total */
+    border-color: #22c55e;      /* borda verde */
+    color: #15803d;             /* texto verde */
+    box-shadow: 4px 4px 10px rgba(34,197,94,0.15), -3px -3px 8px rgba(255,255,255,0.5);  /* sombra do elemento */
+}
+
+.ent-filtro.todos.ativo .filtro-dot.todos {
+    background: #22c55e;        /* bolinha verde */
+    border-color: #22c55e;  /* cor da borda */
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);  /* brilho */
+}
+
+/* FBR ativo = vermelho (igual card FBR) */
+.ent-filtro.fbr.ativo {
+    background: linear-gradient(145deg, #fde8e8, #fce4e4);  /* vermelho claro */
+    border-color: #dc2626;      /* borda vermelha */
+    color: #dc2626;             /* texto vermelho */
+    box-shadow: 4px 4px 10px rgba(220,38,38,0.15), -3px -3px 8px rgba(255,255,255,0.5);  /* sombra do elemento */
+}
+
+.ent-filtro.fbr.ativo .filtro-dot.fbr {
+    background: #dc2626;        /* bolinha vermelha */
+    border-color: #dc2626;  /* cor da borda */
+    box-shadow: 0 0 6px rgba(220, 38, 38, 0.4);  /* brilho */
+}
+
+/* FPT ativo = preto (igual card FPT) */
+.ent-filtro.fpt.ativo {
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);  /* preto */
+    border-color: #000;         /* borda preta */
+    color: #fff;                /* texto branco */
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.2), -3px -3px 8px rgba(255,255,255,0.08);  /* sombra do elemento */
+}
+
+.ent-filtro.fpt.ativo .filtro-dot.fpt {
+    background: #fff;           /* bolinha branca */
+    border-color: #fff;  /* texto branco */
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);  /* brilho */
+}
+
+/* Info dos filtros */
+.ent-filtro-info {
+    font-size: 12px;            /* tamanho */
+    color: #94a3b8;             /* cinza */
+    margin-left: 8px;           /* espaço esquerda */
+    font-weight: 500;           /* médio */
+}
+
+/* ========== HEADER DA LISTA (colunas) ========== */
+.ent-lista-header {
+    display: grid;              /* grade */
+    grid-template-columns: 0.8fr 1.8fr 0.6fr 0.5fr 0.5fr 0.6fr 0.5fr 0.7fr 0.7fr 0.6fr;  /* 10 colunas */
+    padding: 12px 16px;         /* espaço interno */
+    background: linear-gradient(145deg, #c8cdd4, #bfc4cc);  /* cinza escuro */
+    border-radius: 12px;        /* cantos */
+    font-size: 11px;            /* fonte pequena */
+    font-weight: 700;           /* negrito */
+    color: #475569;             /* cinza escuro */
+    text-transform: uppercase;  /* MAIÚSCULO */
+    letter-spacing: 0.6px;      /* espaço letras */
+    margin-bottom: 8px;         /* espaço abaixo */
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05), inset -2px -2px 4px rgba(255,255,255,0.35);  /* sombra do elemento */
+}
+
+.ent-lista-header span { text-align: center; }  /* centraliza colunas */
+
+.ent-lista-header span:nth-child(1),
+.ent-lista-header span:nth-child(2) { text-align: left; }  /* ME e Nome à esquerda */
+
+/* ========== ITENS DA LISTA (cada serviço) ========== */
+.ent-item {
+    display: grid;              /* mesma grade */
+    grid-template-columns: 0.8fr 1.8fr 0.6fr 0.5fr 0.5fr 0.6fr 0.5fr 0.7fr 0.7fr 0.6fr;  /* define colunas do grid */
+    padding: 12px 16px;         /* espaço interno */
+    background: linear-gradient(145deg, #e6eaf0, #dde1e8);  /* degradê neumorphism */
+    border-radius: 12px;        /* cantos */
+    margin-bottom: 6px;         /* espaço entre itens */
+    font-size: 13px;            /* tamanho fonte */
+    font-weight: 500;           /* peso médio */
+    align-items: center;        /* centraliza vertical */
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.06), -2px -2px 6px rgba(255,255,255,0.5);  /* sombra do elemento */
+    border: 1px solid rgba(255, 255, 255, 0.4);  /* borda vidro */
+    transition: all 0.2s;       /* animação */
+}
+
+.ent-item:hover {
+    transform: translateY(-1px);  /* sobe */
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.09), -3px -3px 10px rgba(255,255,255,0.6);  /* sombra do elemento */
+}
+
+/* Borda por tipo */
+.ent-item.fbr { border-left: 4px solid #dc2626; }  /* vermelha */
+.ent-item.fpt { border-left: 4px solid #1a1a1a; }  /* preta */
+
+/* ========== COLUNAS ========== */
+.col-me { font-weight: 700; color: #1e40af; font-size: 14px; }              /* ME azul negrito */
+.col-nome { font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }  /* Nome com reticências */
+.col-tipo { text-align: center; }                                            /* Tipo centralizado */
+.col-dim { text-align: center; color: #64748b; font-size: 14px; }           /* Dimensões cinza */
+.col-num { text-align: center; font-weight: 600; color: #334155; }          /* Batidas/Unidades */
+.col-tempo { text-align: center; font-weight: 600; color: #0369a1; font-size: 14px; }  /* Tempo azul */
+.col-data { text-align: center; color: #94a3b8; font-size: 14px; }          /* Data cinza claro */
+.col-acoes { display: flex; gap: 6px; justify-content: center; }             /* Ações centralizadas */
+
+/* ========== BADGES (FBR/FPT na lista) ========== */
+.ent-badge {
+    display: inline-block;      /* inline com padding */
+    padding: 3px 10px;          /* espaço interno */
+    border-radius: 6px;         /* cantos */
+    font-size: 11px;            /* fonte */
+    font-weight: 700;           /* negrito */
+    letter-spacing: 0.3px;      /* espaço letras */
+    text-transform: uppercase;  /* MAIÚSCULO */
+}
+
+.ent-badge.fbr {
+    background: linear-gradient(135deg, #fee2e2, #fecaca);  /* vermelho claro */
+    color: #dc2626;             /* texto vermelho */
+    border: 1px solid rgba(220, 38, 38, 0.2);  /* borda fina */
+}
+
+.ent-badge.fpt {
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);  /* preto */
+    color: #fff;                /* texto branco */
+    border: 1px solid rgba(0, 0, 0, 0.15);  /* borda fina */
+}
+
+/* ========== BOTÕES AÇÃO (enviar e excluir) ========== */
+.btn-enviar, .btn-excluir {
+    width: 30px; height: 30px;  /* quadrado */
+    border-radius: 8px;         /* cantos */
+    border: none;               /* sem borda */
+    cursor: pointer;            /* mãozinha */
+    display: flex;              /* centraliza ícone */
+    align-items: center; justify-content: center;  /* centraliza horizontalmente */
+    font-size: 12px;            /* tamanho ícone */
+    color: #fff;                /* branco */
+    transition: all 0.2s;       /* animação */
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1), -1px -1px 4px rgba(255,255,255,0.3);  /* sombra do elemento */
+}
+
+.btn-enviar { background: linear-gradient(135deg, #3b82f6, #2563eb); }  /* azul */
+.btn-enviar:hover { background: linear-gradient(135deg, #2563eb, #1d4ed8); transform: scale(1.08); }
+
+.btn-excluir { background: linear-gradient(135deg, #ef4444, #dc2626); }  /* vermelho */
+.btn-excluir:hover { background: linear-gradient(135deg, #dc2626, #b91c1c); transform: scale(1.08); }
+
+/* ========== VAZIO (sem serviços) ========== */
+.ent-vazio { text-align: center; padding: 50px 20px; color: #94a3b8; }
+.ent-vazio i { font-size: 44px; margin-bottom: 14px; display: block; opacity: 0.4; }
+.ent-vazio p { font-size: 16px; font-weight: 600; color: #64748b; margin-bottom: 6px; }
+.ent-vazio span { font-size: 13px; }
+
+/* ========== NOTIFICAÇÃO TOAST ========== */
+.notif {
+    position: fixed;            /* fixo na tela */
+    top: 20px; right: 20px;    /* canto superior direito */
+    padding: 14px 24px;         /* espaço interno */
+    border-radius: 12px;        /* cantos */
+    color: #fff;                /* branco */
+    font-weight: 600;           /* semi-negrito */
+    z-index: 20000;             /* na frente de tudo */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    box-shadow: 6px 6px 16px rgba(0,0,0,0.15), -3px -3px 10px rgba(255,255,255,0.2);  /* sombra do elemento */
+    animation: slideIn 0.3s ease;  /* entra deslizando */
+}
+
+.notif.success { background: linear-gradient(135deg, #22c55e, #16a34a); }  /* verde */
+.notif.error { background: linear-gradient(135deg, #ef4444, #dc2626); }    /* vermelho */
+.notif.info { background: linear-gradient(135deg, #3b82f6, #2563eb); }     /* azul */
+
+/* ========== SCROLLBAR ========== */
+#lista-ent {
+    flex: 1;                    /* ocupa espaço restante */
+    overflow-y: auto;           /* scroll vertical */
+    padding-right: 4px;         /* espaço para scrollbar */
+    min-height: 0;              /* IMPORTANTE: permite flex encolher */
+}
+
+#lista-ent::-webkit-scrollbar { width: 6px; }                                /* barra fina */
+#lista-ent::-webkit-scrollbar-track { background: transparent; }              /* trilho invisível */
+#lista-ent::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 10px; }  /* bolinha cinza */
+#lista-ent::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }   /* mais escura no hover */
+
+/* ========== ANIMAÇÕES ========== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }   /* invisível, abaixo */
+    to { opacity: 1; transform: translateY(0); }        /* visível, normal */
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(30px); }   /* invisível, direita */
+    to { opacity: 1; transform: translateX(0); }         /* visível, normal */
+}
+
+/* ========== TOGGLE TIPO FBR / FPT (botões no formulário) ========== */
+.tipo-toggle {
+    display: flex;              /* lado a lado */
+    gap: 8px;                   /* espaço */
+}
+
+/* Botão tipo (inativo) */
+.tipo-btn {
+    flex: 1;                    /* metade cada */
+    padding: 10px 14px;         /* espaço interno */
+    border: 2px solid rgba(0, 0, 0, 0.08);  /* borda neutra */
+    border-radius: 10px;        /* cantos */
+    font-size: 13px;            /* tamanho */
+    font-weight: 700;           /* negrito */
+    font-family: 'DM Sans', sans-serif;  /* fonte do texto */
+    cursor: pointer;            /* mãozinha */
+    display: flex;              /* bolinha + texto */
+    align-items: center; justify-content: center;  /* centraliza horizontalmente */
+    gap: 8px;                   /* espaço */
+    background: linear-gradient(145deg, #dfe3e9, #e8ecf2);  /* neutro */
+    color: #64748b;             /* cinza */
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.07), inset -2px -2px 5px rgba(255,255,255,0.5);  /* sombra do elemento */
+    transition: all 0.25s ease; /* animação */
+    text-transform: uppercase;  /* MAIÚSCULO */
+    letter-spacing: 0.5px;      /* espaço letras */
+}
+
+/* Bolinha do toggle */
+.tipo-dot {
+    width: 10px; height: 10px;  /* tamanho */
+    border-radius: 50%;         /* redonda */
+    transition: all 0.25s ease; /* animação */
+}
+
+/* Bolinhas inativas (cinza) */
+.tipo-dot.fbr { background: #cbd5e1; border: 2px solid rgba(0,0,0,0.1); }
+.tipo-dot.fpt { background: #cbd5e1; border: 2px solid rgba(0,0,0,0.1); }
+
+/* FBR ativo = vermelho (igual card stat FBR) */
+.tipo-btn.fbr.ativo {
+    background: linear-gradient(145deg, #fde8e8, #fce4e4);  /* vermelho claro */
+    border-color: #dc2626; color: #dc2626;                   /* borda e texto vermelhos */
+    box-shadow: 4px 4px 10px rgba(220,38,38,0.15), -3px -3px 8px rgba(255,255,255,0.5);  /* sombra do elemento */
+}
+
+.tipo-btn.fbr.ativo .tipo-dot.fbr {
+    background: #dc2626; border-color: #dc2626;              /* bolinha vermelha */
+    box-shadow: 0 0 6px rgba(220, 38, 38, 0.4);             /* brilho */
+}
+
+/* FPT ativo = preto (igual card stat FPT) */
+.tipo-btn.fpt.ativo {
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);  /* preto */
+    border-color: #000; color: #fff;                          /* borda preta, texto branco */
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.2), -3px -3px 8px rgba(255,255,255,0.08);  /* sombra do elemento */
+}
+
+.tipo-btn.fpt.ativo .tipo-dot.fpt {
+    background: #fff; border-color: #fff;                     /* bolinha branca */
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);            /* brilho */
+}
+
+/* Hover (quando não ativo) - cor própria */
+.tipo-btn.fbr:not(.ativo):hover {
+    border-color: #dc2626;  /* cor da borda */
+    color: #dc2626;  /* cor do texto */
+    box-shadow: 3px 3px 8px rgba(220,38,38,0.12), -2px -2px 6px rgba(255,255,255,0.5);  /* sombra do elemento */
+}
+.tipo-btn.fpt:not(.ativo):hover {
+    border-color: #1a1a1a;  /* cor da borda */
+    color: #1a1a1a;  /* cor do texto */
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.15), -2px -2px 6px rgba(255,255,255,0.5);  /* sombra do elemento */
+}
+
+
+/* ========== RESPONSIVO — TABLETS (até 1100px) ========== */
+@media (max-width: 1100px) {
+    .entrada-layout { flex-direction: column; padding: 20px 16px; }  /* empilha cards verticalmente */
+    .ent-form-card { flex: none; width: 100%; min-width: auto; height: auto; }  /* form sem altura fixa, largura total */
+    .ent-lista-card {
+        width: 100%;             /* largura total */
+        height: 70vh;            /* altura = 70% da tela. Ajuste para mais ou menos conforme necessidade */
+        display: flex;           /* mantém flex para scroll interno */
+        flex-direction: column;  /* empilha conteúdo */
+        overflow: hidden;        /* impede lista de vazar do card */
+    }
+    #lista-ent {
+        flex: 1;                 /* ocupa espaço restante dentro do card */
+        overflow-y: auto;        /* ativa scroll vertical */
+        min-height: 0;           /* IMPORTANTE: permite o flex encolher e ativar o scroll */
+    }
+}
+
+/* ========== RESPONSIVO — CELULAR (até 768px) ========== */
+@media (max-width: 768px) {
+    .ent-stats { flex-direction: column; gap: 10px; }                /* stats empilham */
+    .ent-lista-header, .ent-item {
+        grid-template-columns: 0.8fr 1.5fr 0.6fr 0.5fr 0.5fr 0.6fr 0.5fr 0.6fr 0.6fr 0.5fr;  /* colunas ajustadas */
+        font-size: 11px; padding: 10px 10px;                        /* menor */
+    }
+    .ent-stat h3 { font-size: 26px; }                               /* número menor */
+    .ent-busca-area { flex-direction: column; }                      /* empilha */
+    .ent-form-card { height: auto; }                                 /* form sem altura fixa */
+    .ent-lista-card { height: 65vh; }                                /* lista = 65% da tela no celular */
+}
+
+/* Ícone quadrado padrão */
+.stat-icon {
+    display: inline-block;  /* tipo de exibição */
+    width: 14px;  /* largura */
+    height: 14px;  /* altura */
+    margin-right: 6px;  /* espaço externo à direita */
+    border-radius: 2px;  /* cantos arredondados */
+    transform: translateY(1.9px);  /* move para cima/baixo */
+}
+
+/* FBR = branco chapado */
+.ent-stat.fbr .stat-icon {
+    background: #ffffff;  /* fundo branco */
+    border: 1px solid rgba(0,0,0,0.2);  /* borda fina */
+}
+
+/* FPT = preto chapado */
+.ent-stat.fpt .stat-icon {
+    background: #000000;  /* cor de fundo */
+    border: 1px solid #333232
+}
+/* ============================================================
+   9. MODAIS — Modal Histórico ME (transparente/glassmorphism)
+   Modal de histórico de produção do ME
+   ============================================================ */
+
+/* ========== ME CLICAVEL NA LISTA ========== */
+.col-me-link {
+    cursor: pointer;  /* cursor de mão (clicável) */
+    text-decoration: underline;  /* sublinhado */
+    text-decoration-style: dotted;  /* formatação de texto */
+    text-underline-offset: 3px;  /* formatação de texto */
+}
+
+.col-me-link:hover {
+    color: #1e40af;  /* cor do texto */
+    text-decoration-style: solid;  /* formatação de texto */
+}
+
+/* ========== MODAL OVERLAY ========== */
+.modal-overlay {
+    display: none;  /* escondido */
+    position: fixed;  /* fixo na tela, não rola */
+    top: 0; left: 0; right: 0; bottom: 0;  /* colado no topo */
+    background: rgba(0, 0, 0, 0.5);  /* fundo semitransparente */
+    backdrop-filter: blur(4px);  /* desfoca o fundo atrás (efeito vidro) */
+    z-index: 10000;  /* camada de sobreposição */
+    align-items: center;  /* centraliza verticalmente */
+    justify-content: center;  /* centraliza horizontalmente */
+}
+
+.modal-overlay.ativo {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+}
+
+/* ========== MODAL HISTORICO ME ========== */
+.modal-historico {
+    background: rgba(232, 236, 241, 0.95);  /* fundo semitransparente */
+    backdrop-filter: blur(20px);  /* desfoca o fundo atrás (efeito vidro) */
+    -webkit-backdrop-filter: blur(20px);  /* desfoca o fundo atrás (efeito vidro) */
+    border-radius: 20px;  /* cantos arredondados */
+    width: 1200px;  /* largura */
+    max-width: 95vw;  /* largura máxima */
+    max-height: 80vh;  /* altura máxima */
+    box-shadow: 12px 12px 30px rgba(0,0,0,0.2), -8px -8px 20px rgba(255,255,255,0.5);  /* sombra do elemento */
+    border: 1px solid rgba(255, 255, 255, 0.45);  /* borda fina */
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    flex-direction: column;  /* empilha itens de cima para baixo */
+    overflow: hidden;  /* esconde conteúdo que vazar */
+    animation: fadeIn 0.2s ease;  /* animação CSS */
+}
+
+.modal-hist-header {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    align-items: center;  /* centraliza verticalmente */
+    justify-content: space-between;  /* distribui com espaço entre */
+    padding: 20px 24px;  /* espaço interno */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);  /* borda só embaixo */
+}
+
+.modal-hist-titulo {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    align-items: center;  /* centraliza verticalmente */
+    gap: 10px;  /* espaço entre itens flex/grid */
+    font-size: 22px;  /* tamanho da fonte */
+    font-weight: 800;  /* extra-negrito */
+    color: #1e40af;  /* cor do texto */
+}
+
+.modal-hist-titulo i {
+    font-size: 18px;  /* tamanho da fonte */
+    color: #3b82f6;  /* cor do texto */
+}
+
+.modal-hist-fechar {
+    width: 36px; height: 36px;  /* largura */
+    border-radius: 10px;  /* cantos arredondados */
+    border: none;  /* sem borda */
+    background: linear-gradient(145deg, #e0e4ea, #e8ecf2);  /* degradê */
+    color: #64748b;  /* cor do texto */
+    font-size: 16px;  /* tamanho da fonte */
+    cursor: pointer;  /* cursor de mão (clicável) */
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    align-items: center;  /* centraliza verticalmente */
+    justify-content: center;  /* centraliza horizontalmente */
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.06), inset -2px -2px 4px rgba(255,255,255,0.5);  /* sombra do elemento */
+    transition: all 0.2s;  /* animação suave na mudança */
+}
+
+.modal-hist-fechar:hover {
+    color: #dc2626;  /* cor do texto */
+    background: linear-gradient(145deg, #fde8e8, #fce4e4);  /* degradê */
+}
+
+.modal-hist-info {
+    display: flex;  /* ativa flexbox (itens lado a lado ou empilhados) */
+    gap: 10px;  /* espaço entre itens flex/grid */
+    padding: 16px 24px;  /* espaço interno */
+    flex-wrap: wrap;  /* quebra linha quando não cabe */
+}
+
+.modal-hist-dado {
+    flex: 1;  /* ocupa todo espaço disponível */
+    min-width: 90px;  /* largura mínima */
+    background: linear-gradient(145deg, #dfe3e9, #e8ecf2);  /* degradê */
+    border-radius: 10px;  /* cantos arredondados */
+    padding: 10px 12px;  /* espaço interno */
+    text-align: center;  /* texto centralizado */
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05), inset -2px -2px 4px rgba(255,255,255,0.4);  /* sombra do elemento */
+}
+
+.modal-hist-label {
+    display: block;  /* exibe como bloco */
+    font-size: 10px;  /* tamanho da fonte */
+    font-weight: 700;  /* negrito */
+    color: #64748b;  /* cor do texto */
+    text-transform: uppercase;  /* texto em MAIÚSCULAS */
+    letter-spacing: 0.5px;  /* espaço entre letras */
+    margin-bottom: 4px;  /* espaço externo abaixo */
+}
+
+.modal-hist-valor {
+    font-size: 15px;  /* tamanho da fonte */
+    font-weight: 700;  /* negrito */
+    color: #1e293b;  /* cor do texto */
+}
+
+.modal-hist-destaque {
+    color: #15803d;  /* cor do texto */
+    font-size: 16px;  /* tamanho da fonte */
+}
+
+.modal-hist-lista-header {
+    display: grid;  /* ativa grid layout */
+    grid-template-columns: 0.5fr 1fr 1.2fr 1.2fr 0.4fr;  /* define colunas do grid */
+    padding: 10px 24px;  /* espaço interno */
+    font-size: 11px;  /* tamanho da fonte */
+    font-weight: 700;  /* negrito */
+    color: #64748b;  /* cor do texto */
+    text-transform: uppercase;  /* texto em MAIÚSCULAS */
+    letter-spacing: 0.5px;  /* espaço entre letras */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);  /* borda só embaixo */
+}
+
+.modal-hist-lista {
+    flex: 1;  /* ocupa todo espaço disponível */
+    overflow-y: auto;  /* scroll vertical quando necessário */
+    padding: 8px 24px 20px;  /* espaço interno */
+    min-height: 0;  /* altura mínima */
+}
+
+.hist-item {
+    display: grid;  /* ativa grid layout */
+    grid-template-columns: 0.5fr 1fr 1.2fr 1.2fr 0.4fr;  /* define colunas do grid */
+    align-items: center;  /* centraliza verticalmente */
+    padding: 10px 0;  /* espaço interno */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);  /* borda só embaixo */
+    font-size: 13px;  /* tamanho da fonte */
+}
+
+.hist-item:last-child { border-bottom: none; }
+
+.hist-maq {
+    font-weight: 700;  /* negrito */
+    color: #3b82f6;  /* cor do texto */
+    font-size: 14px;  /* tamanho da fonte */
+}
+
+.hist-data {
+    color: #475569;  /* cor do texto */
+    font-size: 12px;  /* tamanho da fonte */
+}
+
+.hist-data i {
+    margin-right: 4px;  /* espaço externo à direita */
+    font-size: 10px;  /* tamanho da fonte */
+    color: #94a3b8;  /* cor do texto */
+}
+
+.btn-hist-del {
+    width: 26px; height: 26px;  /* largura */
+    font-size: 10px;  /* tamanho da fonte */
+}
+
+.hist-vazio {
+    text-align: center;  /* texto centralizado */
+    padding: 30px;  /* espaço interno */
+    color: #94a3b8;  /* cor do texto */
+}
+
+.hist-vazio i {
+    font-size: 32px;  /* tamanho da fonte */
+    margin-bottom: 10px;  /* espaço externo abaixo */
+    display: block;  /* exibe como bloco */
+    opacity: 0.4;  /* transparência (0=invisível, 1=visível) */
+}
+
+.modal-hist-lista::-webkit-scrollbar { width: 5px; }
+.modal-hist-lista::-webkit-scrollbar-track { background: transparent; }
+.modal-hist-lista::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
